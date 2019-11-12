@@ -71,9 +71,9 @@
             class:text-info={$show.options}
             on:click|preventDefault|stopPropagation={$show.toggleOptions}
           />
-          <UpVote item={comment}/>
+          <UpVote bind:item={comment}/>
           <Score item={comment}/>
-          <DownVote item={comment}/>
+          <DownVote bind:item={comment}/>
         </div>
       </div>
     {/if}
