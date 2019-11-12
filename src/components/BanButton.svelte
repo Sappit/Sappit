@@ -20,88 +20,94 @@
       ban
     {/if}
   {/if}
-  {#if false}
-  <b-modal v-model="showingBanModal" title="Ban User" size="md" no-close-on-backdrop="no-close-on-backdrop"
-      scrollable="scrollable" lazy="lazy" on:click|preventDefault|stopPropagation>
-    {#if existingBan}
-      <div class="alert alert-warning">
-        { name } is already banned! <TimeAgo value={existingBan.date} />
-        {#if existingBan.note}
-          <span class="badge badge-secondary">note: { existingBan.note }</span>
+  {#if showingBanModal}
+    <div class="card">
+      <div class="card-header">
+        Ban User
+      </div>
+      <div class="card-body">
+        {#if existingBan}
+          <div class="alert alert-warning">
+            { name } is already banned!
+            <TimeAgo value={existingBan.date} />
+            {#if existingBan.note}
+              <span class="badge badge-secondary">note: { existingBan.note }</span>
+            {/if}
+          </div>
+        {/if}
+        <a href="/r/{item.subreddit}/about/banned">Banned Users Page</a>
+        {#if !existingBan}
+          <div class="form-group">
+            <label>who to ban:</label>
+            <input
+              class="form-control"
+              bind:value={name}
+            />
+          </div>
+          <div class="form-group">
+            <select
+              class="form-control r-select"
+              id="exampleFormControlSelect1"
+              bind:value={selectedReason}
+            >
+              {#if rules && rules.length}
+              <optgroup label="Subreddit Rules">
+                {#each rules as rule, index}
+                  <option value={rule}>
+                    {rule.short_name || rule.violation_reason}
+                  </option>
+                {/each}
+              </optgroup>
+              {/if}
+              {#if site_rules && site_rules.length}
+              <optgroup label="Site Rules">
+                {#each site_rules as rule, index}
+                  <option value={rule}>
+                    {rule}
+                  </option>
+                {/each}
+              </optgroup>
+              {/if}
+              <option value="other">other</option>
+            </select>
+            {#if selectedReason && selectedReason.description_html}
+              <div class="alert alert-info">{@html selectedReason.description_html}</div>
+            {/if}
+          </div>
+          <div class="form-group">
+            <label>duration:</label>
+            <input
+              class="form-control"
+              value={duration}
+              on:change={(event) => duration = event.target.value}
+            />
+            <em class="text-muted">1 to 999, blank is permanent</em>
+          </div>
+          <div class="form-group">
+            <label>Mod Log Note:</label>
+            <input
+              class="form-control"
+              value={note}
+              on:change={(event) => note = event.target.value}
+            />
+          </div>
+          <div class="form-group">
+            <label>Ban Message:</label>
+            <textarea
+              class="form-control"
+              value={ban_message}
+              on:input={(event) => ban_message = event.target.value}
+            ></textarea>
+          </div>
+          {#if error}
+            <ErrorAlert value={error} />
+          {/if}
+          {#if success}
+            <div class="alert alert-success"><tt><pre>{success}</pre></tt></div>
+          {/if}
         {/if}
       </div>
-    {/if}
-    <a href="/r/{item.subreddit}/about/banned">Banned Users Page</a>
-    {#if !existingBan}
-      <div class="form-group">
-        <label>who to ban:</label>
-        <input
-          class="form-control"
-          bind:value={name}
-        />
-      </div>
-      <div class="form-group">
-        <select
-          class="form-control r-select"
-          id="exampleFormControlSelect1"
-          bind:value={selectedReason}
-        >
-          {#if rules && rules.length}
-          <optgroup label="Subreddit Rules">
-            {#each rules as rule, index}
-              <option value={rule}>
-                {rule.short_name || rule.violation_reason}
-              </option>
-            {/each}
-          </optgroup>
-          {/if}
-          {#if site_rules && site_rules.length}
-          <optgroup label="Site Rules">
-            {#each site_rules as rule, index}
-              <option value={rule}>
-                {rule}
-              </option>
-            {/each}
-          </optgroup>
-          {/if}
-          <option value="other">other</option>
-        </select>
-        {#if selectedReason && selectedReason.description_html}
-          <div class="alert alert-info">{@html selectedReason.description_html}</div>
-        {/if}
-      </div>
-      <div class="form-group">
-        <label>duration:</label>
-        <input
-          class="form-control"
-          value={duration}
-          on:change={(event) => duration = event.target.value}
-        />
-        <em class="text-muted">1 to 999, blank is permanent</em>
-      </div>
-      <div class="form-group">
-        <label>Mod Log Note:</label>
-        <input
-          class="form-control"
-          value={note}
-          on:change={(event) => note = event.target.value}
-        />
-      </div>
-      <div class="form-group">
-        <label>Ban Message:</label>
-        <textarea
-          class="form-control"
-          value={ban_message}
-          on:input={(event) => ban_message = event.target.value}
-        ></textarea>
-      </div>
-      {#if error}
-        <ErrorAlert value={error} />
-      {/if}
-      {#if success}
-        <div class="alert alert-success"><tt><pre>{success}</pre></tt></div>
-      {/if}
-      <div class="w-100" v-slot="modal-footer">
+      <div class="w-100 card-header">
         <div class="btn-group float-right">
           {#if !success}
             <button
@@ -111,26 +117,27 @@
               on:click|preventDefault|stopPropagation={() => showingBanModal=false}
             >CANCEL</button>
           {/if}
-          {#if success}
-            <button
-              class="btn btn-sm btn-primary"
-              class:disabled={(busy)}
-              disabled={(busy)}
-              on:click|preventDefault|stopPropagation={() => showingBanModal=false}
-            >DONE</button>
-          {/if}
-          {#if !success}
-            <button
-              class="btn btn-sm btn-primary"
-              class:disabled={(busy)}
-              disabled={(busy)}
-              on:click|preventDefault|stopPropagation={ban}
-            >BAN</button>
+          {#if !existingBan}
+            {#if success}
+              <button
+                class="btn btn-sm btn-primary"
+                class:disabled={(busy)}
+                disabled={(busy)}
+                on:click|preventDefault|stopPropagation={() => showingBanModal=false}
+              >DONE</button>
+            {/if}
+            {#if !success}
+              <button
+                class="btn btn-sm btn-primary"
+                class:disabled={(busy)}
+                disabled={(busy)}
+                on:click|preventDefault|stopPropagation={ban}
+              >BAN</button>
+            {/if}
           {/if}
         </div>
       </div>
-    {/if}
-  </b-modal>
+    </div>
   {/if}
 </span>
 

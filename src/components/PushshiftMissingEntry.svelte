@@ -39,7 +39,6 @@ import PostForm from '~/components/PostForm';
 import PostImage from '~/components/PostImage';
 import PostThumbnail from '~/components/PostThumbnail';
 import RemoveButton from '~/components/RemoveButton';
-import ReportButton from '~/components/ReportButton';
 import SaveButton from '~/components/SaveButton';
 import Score from '~/components/Score';
 import SpamButton from '~/components/SpamButton';

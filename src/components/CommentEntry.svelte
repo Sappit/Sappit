@@ -125,7 +125,7 @@
         {#if !isAuthor}
           <ReportButton item={comment}/>
         {/if}
-        <CrossPostButton on:click={$show.toggleCrosspost} />
+        <!-- <CrossPostButton on:click={$show.toggleCrosspost} /> -->
         {#if comment.user_reports && comment.user_reports.length > 0}
           <span class="btn-see-reports"
               on:click|preventDefault|stopPropagation={$show.toggleReports}>
@@ -159,13 +159,13 @@
         on:close={$show.toggleEdit}
       />
     {/if}
-    {#if $show.crosspost && !collapsed}
+    <!-- {#if $show.crosspost && !collapsed}
       <PostForm
         parent={comment}
         on:created-post={onCrossPostCreated}
         on:close={$show.toggleCrosspost}
       />
-    {/if}
+    {/if} -->
     {#if $show.reports && !collapsed}
       {#if comment.user_reports && comment.user_reports.length > 0}
       <div class="alert alert-danger">

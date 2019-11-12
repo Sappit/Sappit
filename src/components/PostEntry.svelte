@@ -126,7 +126,7 @@
             reply
           </span>
           <CrossPostButton
-            on:click={$show.toggleCrosspost}
+            on:click={() => showCrosspost = !showCrosspost}
           />
           <TumblrShareButton
             on:click={$show.toggleTumblrshare}
@@ -174,8 +174,8 @@
         {#if $show.edit}
           <PostForm {post} on:created-comment={onPostUpdated} on:close={$show.toggleEdit}/>
         {/if}
-        {#if $show.crosspost}
-          <PostForm parent={post} on:created-post={onCrossPostCreated} on:close={$show.toggleCrosspost}/>
+        {#if showCrosspost}
+          <PostForm parent={post} on:created-post={onCrossPostCreated} on:close={() => showCrosspost = false}/>
         {/if}
         {#if $show.tumblrshare}
           <TumblrShareForm parent={post} on:created-post={onTumblrShareCreated} on:close={$show.toggleTumblrshare}/>
@@ -278,6 +278,7 @@ export let post;
 export let showThumbnail = true;
 let show = oneOpen();
 let showReply = false;
+let showCrosspost = false;
 let myReplies = [];
 
 $: validatePropPost(post);

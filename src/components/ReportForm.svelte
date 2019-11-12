@@ -1,137 +1,130 @@
-<span
-  on:click|preventDefault|stopPropagation={prompt}
->
-  <i class="fa fa-fw fa-btn fa-megaphone"/>
-  report
-  {#if false}
-  <div class="card">
-    <div class="card-body">
-      <div
-        v-model="showingReportModal"
-        title="Report Content"
-        size="md"
-        no-close-on-backdrop="no-close-on-backdrop"
-        scrollable="scrollable"
-        lazy="lazy"
-        on:click|preventDefault|stopPropagation
-        on:hidden={resetReportState}
-      >
-        {#if reportState.step===0}
-          <div class="form-group" on:click|preventDefault|stopPropagation>
-            <label>Reporting Category?</label>
-            <b-form-radio-group v-model="reportState.step0">
-              <b-form-radio class="w-100" value={-1}>It breaks r/{ item.subreddit }'s rules</b-form-radio>
-            </b-form-radio-group>
-          </div>
-        {/if}
-        {#if reportState.step===1 && reportState.step0 === -1}
-          <div
-            class="form-group sub-rules"
-            on:click|preventDefault|stopPropagation
-          >
-            <label>r/{ item.subreddit } Rules</label>
-            {#if !(reportState.rules.length > 0)}
-              <p class="text-muted">
-                <em>
-                  r/{ item.subreddit } has not configured any rule metadata.
-                </em>
+
+<div class="card">
+  <div class="card-body">
+    <div
+      v-model="showingReportModal"
+      title="Report Content"
+      size="md"
+      no-close-on-backdrop="no-close-on-backdrop"
+      scrollable="scrollable"
+      lazy="lazy"
+      on:click|preventDefault|stopPropagation
+      on:hidden={resetReportState}
+    >
+      {#if reportState.step===0}
+        <div class="form-group" on:click|preventDefault|stopPropagation>
+          <label>Reporting Category?</label>
+          <b-form-radio-group v-model="reportState.step0">
+            <b-form-radio class="w-100" value={-1}>It breaks r/{ item.subreddit }'s rules</b-form-radio>
+          </b-form-radio-group>
+        </div>
+      {/if}
+      {#if reportState.step===1 && reportState.step0 === -1}
+        <div
+          class="form-group sub-rules"
+          on:click|preventDefault|stopPropagation
+        >
+          <label>r/{ item.subreddit } Rules</label>
+          {#if !(reportState.rules.length > 0)}
+            <p class="text-muted">
+              <em>
+                r/{ item.subreddit } has not configured any rule metadata.
+              </em>
+            </p>
+          {/if}
+          <b-form-radio-group v-model="reportState.step1">
+            {#if reportState.rules.length > 0}
+              {#each reportState.rules as rule, index (`${index}-${rule.violation_reason}`)}
+                <b-form-radio
+                  class="w-100"
+                  value={index.short_name}
+                >
+                    { rule.violation_reason }
+                </b-form-radio>
+              {/each}
+            {/if}
+            <b-form-radio class="w-100" value="other">
+              Other:
+            </b-form-radio>
+            <input
+              class="form-control"
+              v-model="reportState.other_reason"
+              class:disabled={(reportState.step1 !== 'other')}
+              disabled={(reportState.step1 !== 'other')}
+              placeholder="max 100 characters"
+            />
+            {#if reportState.other_reason}
+              <p
+                class:text-danger={(reportState.other_reason||'').length > 100}
+              >
+                { (reportState.other_reason||'').length }/100
               </p>
             {/if}
-            <b-form-radio-group v-model="reportState.step1">
-              {#if reportState.rules.length > 0}
-                {#each reportState.rules as rule, index (`${index}-${rule.violation_reason}`)}
-                  <b-form-radio
-                    class="w-100"
-                    value={index.short_name}
-                  >
-                      { rule.violation_reason }
-                  </b-form-radio>
-                {/each}
-              {/if}
-              <b-form-radio class="w-100" value="other">
-                Other:
-              </b-form-radio>
-              <input
-                class="form-control"
-                v-model="reportState.other_reason"
-                class:disabled={(reportState.step1 !== 'other')}
-                disabled={(reportState.step1 !== 'other')}
-                placeholder="max 100 characters"
-              />
-              {#if reportState.other_reason}
-                <p
-                  class:text-danger={(reportState.other_reason||'').length > 100}
-                >
-                  { (reportState.other_reason||'').length }/100
-                </p>
-              {/if}
-            </b-form-radio-group>
-          </div>
-        {/if}
-        {#if reportState.completeErr}
-          <ErrorAlert value={reportState.completeErr}/>
-        {/if}
-        {#if reportState.completeMsg}
-          <div class="alert alert-success">{reportState.completeMsg}</div>
-        {/if}
-        <div class="w-100" v-slot="modal-footer" on:click|preventDefault|stopPropagation>
-          <div class="btn-group float-right">
-            {#if !reportState.completeMsg}
-              <button
-                class="btn btn-sm btn-primary"
-                on:click|preventDefault|stopPropagation={() => showingReportModal=false}
-              >
-                CANCEL
-              </button>
-            {/if}
-            {#if reportState.completeMsg}
-              <button
-                class="btn btn-sm btn-primary"
-                on:click|preventDefault|stopPropagation={() => showingReportModal=false}
-              >
-                DONE
-              </button>
-            {/if}
-            {#if showReportModalSubmit}
-              <button
-                class="btn btn-sm btn-primary"
-                class:disabled={(disableReportModalSubmit)}
-                disabled={(disableReportModalSubmit)}
-                on:click|preventDefault|stopPropagation={reportModalSubmit}
-              >
-                SUBMIT
-              </button>
-            {/if}
-            {#if showReportModalNext}
-              <button
-                class="btn btn-sm btn-primary"
-                class:disabled={(disableReportModalNext)}
-                disabled={(disableReportModalNext)}
-                on:click|preventDefault|stopPropagation={reportModalNext}
-              >
-                NEXT
-              </button>
-            {/if}
-          </div>
-          <div class="report-form-content-policy">
-            <p on:click|preventDefault|stopPropagation>
-              Read the
-              <a rel="nofolloow" target="_blank" href="https://www.reddit.com/help/contentpolicy">
-                Reddit Content Policy
-              </a>
-              and
-              <a href="/r/{item.subreddit}/about/rules">
-                r/{ item.subreddit }'s rules
-              </a>
-              .
-            </p>
-          </div>
+          </b-form-radio-group>
+        </div>
+      {/if}
+      {#if reportState.completeErr}
+        <ErrorAlert value={reportState.completeErr}/>
+      {/if}
+      {#if reportState.completeMsg}
+        <div class="alert alert-success">{reportState.completeMsg}</div>
+      {/if}
+      <div class="w-100" v-slot="modal-footer" on:click|preventDefault|stopPropagation>
+        <div class="btn-group float-right">
+          {#if !reportState.completeMsg}
+            <button
+              class="btn btn-sm btn-primary"
+              on:click|preventDefault|stopPropagation={() => showingReportModal=false}
+            >
+              CANCEL
+            </button>
+          {/if}
+          {#if reportState.completeMsg}
+            <button
+              class="btn btn-sm btn-primary"
+              on:click|preventDefault|stopPropagation={() => showingReportModal=false}
+            >
+              DONE
+            </button>
+          {/if}
+          {#if showReportModalSubmit}
+            <button
+              class="btn btn-sm btn-primary"
+              class:disabled={(disableReportModalSubmit)}
+              disabled={(disableReportModalSubmit)}
+              on:click|preventDefault|stopPropagation={reportModalSubmit}
+            >
+              SUBMIT
+            </button>
+          {/if}
+          {#if showReportModalNext}
+            <button
+              class="btn btn-sm btn-primary"
+              class:disabled={(disableReportModalNext)}
+              disabled={(disableReportModalNext)}
+              on:click|preventDefault|stopPropagation={reportModalNext}
+            >
+              NEXT
+            </button>
+          {/if}
+        </div>
+        <div class="report-form-content-policy">
+          <p on:click|preventDefault|stopPropagation>
+            Read the
+            <a rel="nofolloow" target="_blank" href="https://www.reddit.com/help/contentpolicy">
+              Reddit Content Policy
+            </a>
+            and
+            <a href="/r/{item.subreddit}/about/rules">
+              r/{ item.subreddit }'s rules
+            </a>
+            .
+          </p>
         </div>
       </div>
     </div>
   </div>
-  {/if}
-</span>
+</div>
 
 <script>
 import ErrorAlert from '~/components/ErrorAlert';
@@ -155,7 +148,6 @@ function init_report_state() {
     completeMsg: null,
   };
 }
-
 
 // props
 export let item;

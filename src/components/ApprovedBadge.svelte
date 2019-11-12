@@ -5,10 +5,10 @@
       {item.removal_reason}
     {/if}
     {#if item.approved_by}
-        [by <UserLink class="text-white" username={item.approved_by} />]
+        [by <UserLink username={item.approved_by} />]
     {/if}
     {#if item.mod_reason_by}
-        [by <UserLink class="text-white" username={item.mod_reason_by} />]
+        [by <UserLink username={item.mod_reason_by} />]
     {/if}
     {#if item.ban_note}
       [{item.ban_note}]
