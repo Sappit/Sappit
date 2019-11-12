@@ -13,12 +13,6 @@
         <i class="fa fa-fw fa-btn fa-github"/>
         Watch us on Github!
       </a>
-      <a class="btn btn-outline-success"
-        rel="nofollow" target="_blank" href="https://www.reddit.com/r/Sappit"
-      >
-        <i class="fa fa-fw fa-btn fa-reddit"/>
-        Visit Our Subreddit
-      </a>
     </div>
   </div>
 </section>
