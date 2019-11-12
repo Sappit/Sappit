@@ -37,7 +37,7 @@ const query = new Proxy(proxyCache, {
             // console.log('goto', url);
             // console.log(res);
           }, err => {
-            console.log('goto', url);
+            // console.log('goto', url);
             console.error(err);
           })
         }

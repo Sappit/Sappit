@@ -48,7 +48,7 @@ export const usernames  = derived(accounts, accounts => {
 });
 
 export async function fetchMe(username) {
-  console.log('fetchMe', {username})
+  // console.log('fetchMe', {username})
   try {
     const response = await reddit.get('api/v1/me', { username });
     response.data.fetchedAt = now();

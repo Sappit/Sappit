@@ -53,7 +53,7 @@ $: console.log(items);
 
 // immediate: true,
 function onLinksChange (newValue) {
-  console.log('onLinksChange', newValue);
+  // console.log('onLinksChange', newValue);
   forEach(newValue, l => {
     // autocollapse link section if all items have been interacted with
     collapsedLinks[l.display_url] =

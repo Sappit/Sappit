@@ -106,7 +106,7 @@ export default async function fetchItems({ path, query }) {
   // }
   path = path(kind, query);
 
-  console.log('path', path);
+  // console.log('path', path);
   const response = await pushshift.get(path, {
     params: {
       ...defaultParams,
@@ -119,7 +119,7 @@ export default async function fetchItems({ path, query }) {
   const zeroResults = !(items.length > 0);
   const showBottomPagination = (items.length > 2);
 
-  console.log('fetchItems.done');
+  // console.log('fetchItems.done');
 
   const lastCreatedAt = getLastCreatedAt(items);
 

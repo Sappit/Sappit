@@ -49,7 +49,7 @@ client.interceptors.request.use(async config => {
   // axios 0.19 breaks this line:
   const username = config.username || store_get(authStore.username);
 
-  console.log('username', username, config.username, store_get(authStore.username), config);
+  // console.log('username', username, config.username, store_get(authStore.username), config);
 
   const accessToken = await getAccessToken({
     username,
