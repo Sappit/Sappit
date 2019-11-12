@@ -78,7 +78,8 @@
           <td>
             <button
               class="btn primary btn-sm"
-              {...disabled(fetching[username])}
+              class:disabled={(fetching[username])}
+              disabled={(fetching[username])}
               on:click|preventDefault|stopPropagation={() => refetchMe(username)}
             >
               <i class="fa fa-fw fa-arrows-cw"/>
@@ -95,7 +96,6 @@ import TimeAgo from '~/components/TimeAgo';
 import { getOAuthLoginHref } from '~/lib/reddit';
 import reddit from '~/lib/reddit';
 import { accounts, username, fetchMe, current, logout } from '~/store/auth'
-import disabled from '~/lib/disabled';
 import middlewareAuth from '~/lib/middleware/auth';
 import validatePropObject from '~/lib/validateProp/object';
 

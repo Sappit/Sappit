@@ -1,6 +1,7 @@
 <span
   class="btn-approve"
-  {...disabled(busy || item.approved)}
+  class:disabled={(busy || item.approved)}
+  disabled={(busy || item.approved)}
   class:text-success={item.approved}
   on:click|preventDefault|stopPropagation={approve}
 >
@@ -24,7 +25,6 @@
 <script>
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 

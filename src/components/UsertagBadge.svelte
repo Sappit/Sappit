@@ -41,7 +41,7 @@
       <input
         class="form-control"
         bind:value={add_username}
-        {...disabled(true)}
+        disabled={(true)}
       />
     </div>
     <div class="form-group">
@@ -77,7 +77,6 @@ import BotBadge from '~/components/BotBadge';
 import TimeAgo from '~/components/TimeAgo';
 import usertags from '~/lib/usertags';
 import { isBot } from '~/lib/bots';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import validatePropString from '~/lib/validateProp/string';

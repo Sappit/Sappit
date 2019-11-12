@@ -117,7 +117,6 @@ import TimeAgo from '~/components/TimeAgo';
 import DateTime from '~/components/DateTime';
 import ShowSource from '~/components/ShowSource';
 import getPostPhotos from '~/lib/tumblr/getPostPhotos';
-import disabled from '~/lib/disabled';
 import validatePropObject from '~/lib/validateProp/object';
 import validatePropTumblrpost from '~/lib/validateProp/tumblrpost';
 import { oneOpen } from '~/lib/open';

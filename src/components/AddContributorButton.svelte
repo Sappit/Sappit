@@ -1,6 +1,7 @@
 <span
   class="btn-contributor"
-  {...disabled(busy || isContributorned)}
+  class:disabled={busy || isContributorned}
+  disabled={busy || isContributorned}
   class:text-success={isContributorned}
   on:click|preventDefault|stopPropagation={prompt}
 >
@@ -50,21 +51,24 @@
           {#if !success}
             <button
               class="btn btn-sm btn-primary"
-              {...disabled(busy)}
+              class:disabled={(busy)}
+              disabled={(busy)}
               on:click|preventDefault|stopPropagation={() => showingContributorModal=false}
             >CANCEL</button>
           {/if}
           {#if success}
             <button
               class="btn btn-sm btn-primary"
-              {...disabled(busy)}
+              class:disabled={(busy)}
+              disabled={(busy)}
               on:click|preventDefault|stopPropagation={() => showingContributorModal=false}
             >DONE</button>
           {/if}
           {#if !success}
             <button
               class="btn btn-sm btn-primary"
-              {...disabled(busy)}
+              class:disabled={(busy)}
+              disabled={(busy)}
               on:click|preventDefault|stopPropagation={contributor}
             >ADD</button>
           {/if}
@@ -81,7 +85,6 @@ import { startMinWait } from '~/lib/sleep';
 import ErrorAlert from '~/components/ErrorAlert';
 import TimeAgo from '~/components/TimeAgo';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import validatePropContributor from '~/lib/validateProp/contributor';

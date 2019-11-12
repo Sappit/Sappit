@@ -1,6 +1,7 @@
 <span
   class="btn-remove"
-  {...disabled(busy || item.spam)}
+  disabled={(busy || item.spam)}
+  class:disabled={(busy || item.spam)}
   class:text-danger={item.spam === true}
   on:click|preventDefault|stopPropagation={remove}
 >
@@ -24,7 +25,6 @@
 <script>
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 

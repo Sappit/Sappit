@@ -1,6 +1,7 @@
 <span
   class="btn-ban"
-  {...disabled(busy || isBanned)}
+  class:disabled={(busy || isBanned)}
+  disabled={(busy || isBanned)}
   class:text-success={isBanned}
   on:click|preventDefault|stopPropagation={prompt}
 >
@@ -105,21 +106,24 @@
           {#if !success}
             <button
               class="btn btn-sm btn-primary"
-              {...disabled(busy)}
+              class:disabled={(busy)}
+              disabled={(busy)}
               on:click|preventDefault|stopPropagation={() => showingBanModal=false}
             >CANCEL</button>
           {/if}
           {#if success}
             <button
               class="btn btn-sm btn-primary"
-              {...disabled(busy)}
+              class:disabled={(busy)}
+              disabled={(busy)}
               on:click|preventDefault|stopPropagation={() => showingBanModal=false}
             >DONE</button>
           {/if}
           {#if !success}
             <button
               class="btn btn-sm btn-primary"
-              {...disabled(busy)}
+              class:disabled={(busy)}
+              disabled={(busy)}
               on:click|preventDefault|stopPropagation={ban}
             >BAN</button>
           {/if}
@@ -136,7 +140,6 @@ import { startMinWait } from '~/lib/sleep';
 import ErrorAlert from '~/components/ErrorAlert';
 import TimeAgo from '~/components/TimeAgo';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropArray from '~/lib/validateProp/array';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';

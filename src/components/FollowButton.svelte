@@ -1,6 +1,7 @@
 <span
   class="btn-follow"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   class:text-info={item.subreddit.user_is_subscriber === true}
   class:text-success={item.subreddit.user_is_subscriber === false}
   on:click|preventDefault|stopPropagation={follow}
@@ -25,7 +26,6 @@
 <script>
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 

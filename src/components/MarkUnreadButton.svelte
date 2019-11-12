@@ -1,6 +1,7 @@
 <span
   class="btn-mark-unread"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   class:text-muted={item.new === false}
   class:text-info={item.new === true}
   on:click|preventDefault|stopPropagation={hide}
@@ -27,7 +28,6 @@
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
 import { fetchMe } from '~/store/auth';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 

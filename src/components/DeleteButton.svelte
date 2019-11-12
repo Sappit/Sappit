@@ -1,6 +1,7 @@
 <span
   class="btn-delete"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   class:text-danger={item.deleted}
   on:click|preventDefault|stopPropagation={trash}
 >
@@ -28,7 +29,6 @@
 import get from 'lodash/get';
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 

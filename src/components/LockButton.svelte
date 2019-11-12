@@ -1,6 +1,7 @@
 <span
   class="btn-lock"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   class:text-success={item.locked === true}
   on:click|preventDefault|stopPropagation={lock}
 >
@@ -26,7 +27,6 @@ import { startMinWait } from '~/lib/sleep';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 
 // lock is the moderator action of locking an item from public visibility
 

@@ -1,6 +1,7 @@
 <span
   class="btn-spoiler"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   on:click|preventDefault|stopPropagation={spoiler}
 >
   {#if busy}
@@ -23,7 +24,6 @@
 <script>
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 

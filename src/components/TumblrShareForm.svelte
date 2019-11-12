@@ -55,7 +55,8 @@
     {/if}
     <button
       class="btn btn-secondary"
-      {...disabled(isSaveDisabled)}
+      class:disabled={(isSaveDisabled)}
+      disabled={(isSaveDisabled)}
       on:click|preventDefault|stopPropagation={saveTumblrPost}
     >
       {#if saving}
@@ -118,7 +119,6 @@ import {
 import { tumblrDefaultTags } from '~/store/settings';
 import fields from '~/lib/tumblr/fields';
 import { createEventDispatcher, onMount } from 'svelte';
-import disabled from '~/lib/disabled';
 import validatePropArray from '~/lib/validateProp/array';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import validatePropObject from '~/lib/validateProp/object';

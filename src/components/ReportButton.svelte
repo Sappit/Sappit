@@ -1,6 +1,7 @@
 <span
   class="btn-hide"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   class:text-success={item.hidden === true}
   on:click|preventDefault|stopPropagation={prompt}
 >
@@ -55,7 +56,8 @@
           <input
             class="form-control"
             v-model="reportState.other_reason"
-            {...disabled(reportState.step1 !== 'other')}
+            class:disabled={(reportState.step1 !== 'other')}
+            disabled={(reportState.step1 !== 'other')}
             placeholder="max 100 characters"
           />
           {#if reportState.other_reason}
@@ -95,7 +97,8 @@
         {#if showReportModalSubmit}
           <button
             class="btn btn-sm btn-primary"
-            {...disabled(disableReportModalSubmit)}
+            class:disabled={(disableReportModalSubmit)}
+            disabled={(disableReportModalSubmit)}
             on:click|preventDefault|stopPropagation={reportModalSubmit}
           >
             SUBMIT
@@ -104,7 +107,8 @@
         {#if showReportModalNext}
           <button
             class="btn btn-sm btn-primary"
-            {...disabled(disableReportModalNext)}
+            class:disabled={(disableReportModalNext)}
+            disabled={(disableReportModalNext)}
             on:click|preventDefault|stopPropagation={reportModalNext}
           >
             NEXT
@@ -134,7 +138,6 @@ import ErrorAlert from '~/components/ErrorAlert';
 import get from 'lodash/get';
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import validatePropObject from '~/lib/validateProp/object';

@@ -12,7 +12,8 @@
   {/if}
   <button
     class="btn btn-secondary"
-    {...disabled(isSaveDisabled)}
+    class:disabled={(isSaveDisabled)}
+    disabled={(isSaveDisabled)}
     on:click|preventDefault|stopPropagation={save}
   >
     {#if saving}
@@ -31,7 +32,6 @@ import get from 'lodash/get';
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
 import { onMount } from 'svelte'
-import disabled from '~/lib/disabled';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import validatePropString from '~/lib/validateProp/string';
 import { stores } from '@sapper/app'

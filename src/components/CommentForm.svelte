@@ -21,7 +21,12 @@
   {#if errors}
     <ErrorAlert value={errors} />
   {/if}
-  <button class="btn btn-secondary" {...disabled(isSaveDisabled)} on:click|preventDefault|stopPropagation={save}>
+  <button
+    class="btn btn-secondary"
+    class:disabled={(isSaveDisabled)}
+    disabled={(isSaveDisabled)}
+    on:click|preventDefault|stopPropagation={save}
+  >
     {#if saving}
       <i class="fa fa-fw fa-btn fa-spinner fa-spin"/>
       {#if editingComment && editingComment.id}
@@ -66,7 +71,6 @@ import thingsToTree from '~/lib/thingsToTree';
 import reddit from '~/lib/reddit';
 import { createEventDispatcher, onMount } from 'svelte'
 import { MeData } from '~/store/auth';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import validatePropComment from '~/lib/validateProp/comment';

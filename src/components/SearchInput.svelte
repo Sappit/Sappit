@@ -9,7 +9,8 @@
     />
     <button
       class="btn btn-sm my-2 my-sm-0"
-      {...disabled(busy)}
+      class:disabled={(busy)}
+      disabled={(busy)}
       type="submit"
       on:click|preventDefault|stopPropagation={() => dispatch('update-search')}
     >
@@ -28,7 +29,6 @@ import get from 'lodash/get';
 import { startMinWait } from '~/lib/sleep';
 import { createEventDispatcher, onMount } from 'svelte'
 import href from '~/lib/href';
-import disabled from '~/lib/disabled';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import queryStore from '~/store/query'
 import { stores, goto } from '@sapper/app'

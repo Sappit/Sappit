@@ -1,6 +1,7 @@
 <span
   class="btn-save"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   class:text-success={item.saved === true}
   on:click|preventDefault|stopPropagation={save}
 >
@@ -24,7 +25,6 @@
 <script>
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 

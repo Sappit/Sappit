@@ -1,6 +1,7 @@
 <span
   class="btn-block-user"
-  {...disabled(busy)}
+  class:disabled={(busy)}
+  disabled={(busy)}
   class:text-muted={item.is_user_blocked}
   on:click|preventDefault|stopPropagation={hide}
 >
@@ -24,7 +25,6 @@
 <script>
 import { startMinWait } from '~/lib/sleep';
 import reddit from '~/lib/reddit';
-import disabled from '~/lib/disabled';
 import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 
