@@ -25,7 +25,8 @@
       on:click|preventDefault|stopPropagation>
     {#if existingContributor}
     <div class="alert alert-warning">
-      { name } is already contributorned! <TimeAgo value={existingContributor.date} />
+      { name } is already contributorned!
+      <TimeAgo value={existingContributor.date} />
       {#if existingContributor.note}
         <span class="badge badge-secondary">note: { existingContributor.note }</span>
       {/if}

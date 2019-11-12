@@ -1,5 +1,7 @@
 <select
   class="form-control r-select select-limit"
+  class:disabled={disabled}
+  {disabled}
   name="limit"
   value={limitVaue}
   on:change={(event) => $limit = event.target.value}
@@ -16,7 +18,7 @@ import getLimitOptions from '~/lib/getLimitOptions';
 
 const { limit } = queryStore;
 
-// export let disabled = false;
+export let disabled = false;
 export let max = 100;
 let defaultValue = 25;
 

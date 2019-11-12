@@ -5,16 +5,16 @@
     {item.removal_reason}
   {/if}
   {#if item.banned_by}
-    [by <UserLink class="text-white" username={item.banned_by} />]
+    [by <UserLink username={item.banned_by} />]
   {/if}
   {#if item.mod_reason_by}
-    [by <UserLink class="text-white" username={item.mod_reason_by} />]
+    [by <UserLink username={item.mod_reason_by} />]
   {/if}
   {#if item.ban_note}
     [{item.ban_note}]
   {/if}
   {#if item.banned_at_utc}
-    <TimeAgo class="small" value={item.banned_at_utc}/>
+    <TimeAgo value={item.banned_at_utc}/>
   {/if}
 </span>
 {/if}

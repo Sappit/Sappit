@@ -47,7 +47,6 @@ import SpoilerButton from '~/components/SpoilerButton';
 import SubredditLink from '~/components/SubredditLink';
 import TimeAgo from '~/components/TimeAgo';
 import UpVote from '~/components/UpVote';
-import UserLink from '~/components/UserLink';
 import ShowSource from '~/components/ShowSource';
 import validatePropItem from '~/lib/validateProp/item';
 import { oneOpen } from '~/lib/open';

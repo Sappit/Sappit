@@ -107,7 +107,6 @@ import find from 'lodash/find';
 import map from 'lodash/map';
 import ErrorAlert from '~/components/ErrorAlert';
 import AddToQueueButton from '~/components/AddToQueueButton';
-import UserLink from '~/components/UserLink';
 import { startMinWait } from '~/lib/sleep';
 import {
   blogs,

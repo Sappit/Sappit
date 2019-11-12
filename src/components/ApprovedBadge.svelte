@@ -14,7 +14,7 @@
       [{item.ban_note}]
     {/if}
     {#if item.approved_at_utc}
-      <TimeAgo class="small" value={item.approved_at_utc} />
+      <TimeAgo value={item.approved_at_utc} />
     {/if}
   </span>
 {/if}

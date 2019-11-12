@@ -17,7 +17,6 @@
 
 <script>
 import TimeAgo from '~/components/TimeAgo';
-import UserLink from '~/components/UserLink';
 import ShowSource from '~/components/ShowSource';
 import validatePropQueueEntry from '~/lib/validateProp/queueEntry';
 import { oneOpen } from '~/lib/open';

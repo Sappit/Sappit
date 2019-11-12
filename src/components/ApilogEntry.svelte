@@ -10,7 +10,7 @@
       <UserLink username={item.username} />
       <div class="pull-right">
         { item.ms.toFixed() } ms
-        <TimeAgo class="text-muted" value={item.start}/>
+        <TimeAgo value={item.start}/>
         {#if item.method !== 'get'}
         <span class="btn-see-result" on:click|preventDefault|stopPropagation={$show.togglePayload}>
           <i class="fa fa-fw fa-btn fa-code"/>

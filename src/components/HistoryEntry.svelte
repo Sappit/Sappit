@@ -37,7 +37,6 @@
 <script>
 import TimeAgo from '~/components/TimeAgo';
 import ShowSource from '~/components/ShowSource';
-import UserLink from '~/components/UserLink';
 import validatePropItem from '~/lib/validateProp/item';
 import href from '~/lib/href';
 import { oneOpen } from '~/lib/open';
