@@ -9,8 +9,6 @@ This app is in EARLY ALPHA, expect bugs and missing features.
 
 [https://sappit.netlify.com](https://sappit.netlify.com)
 
-[Find us on Reddit](https://old.reddit.com/r/Sappit/)
-
 ## Features
 
 Browse Reddit! We're working to add the majority of basic features to reduce the amount of times you need to leave the app. There is a lot of work left to to do! Most places will have a link allowing you to quickly goto reddit while we still have a lot of work to do. (Update!) We have so many things implemented (voting, commenting, crossposting, mod stuff, etc.) that you should open an issue if you want something specific.
