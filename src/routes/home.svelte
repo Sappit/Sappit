@@ -31,10 +31,6 @@
         <i class="fa fa-fw fa-btn fa-github"/>
         Watch us on Github!
       </a>
-      <a class="btn btn-outline-success" href="/r/Sappit">
-        <i class="fa fa-fw fa-btn fa-reddit"/>
-        Visit Our Subreddit
-      </a>
     </div>
   </div>
 </section>
