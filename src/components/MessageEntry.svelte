@@ -14,7 +14,7 @@
       {/if}
       <em class="small text-muted">from</em>
       <UserLink username={message.author} />
-      <UsertagBadge item={message} type="author"/>
+      <UsertagBadge username={message.author}/>
       via
       {#if message.subreddit}
         <SubredditLink subreddit={message.subreddit}/>

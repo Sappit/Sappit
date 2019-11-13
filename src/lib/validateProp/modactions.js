@@ -1,7 +1,7 @@
-import validatePropItem from './item';
+import validatePropArray from './array';
 
 export default function assert (value) {
-  validatePropItem(value);
-  console.log(value)
-  throw new Error('value must be a modaction object');
+  validatePropArray(value);
+  // console.log(value)
+  // throw new Error('value must be a modaction object');
 }

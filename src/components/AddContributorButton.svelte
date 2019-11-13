@@ -139,8 +139,7 @@ async function prompt($event) {
   }
 }
 async function contributor(payload) {
-  const { isSappitContributorned } = item;
-  const { author, subreddit } = item.data;
+  const { isSappitContributorned, author, subreddit } = item;
   const minWait = startMinWait();
 
   try {

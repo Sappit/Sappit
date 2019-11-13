@@ -41,7 +41,7 @@ $: validatePropBoolean(busy);
 $: isRemoved = isItemRemoved(item);
 
 async function remove($event) {
-  const { removed, name, subreddit } = item.data;
+  const { removed, name, subreddit } = item;
   const minWait = startMinWait();
   try {
     busy = true;

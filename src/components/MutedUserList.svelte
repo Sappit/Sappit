@@ -1,17 +1,17 @@
 <div class="muted-users-list">
-  {#each users.data.children as user (user.name)}
-    <muteduserentry {user}/>
+  {#each users as user (user.name)}
+    <MutedUserEntry {user}/>
   {/each}
 </div>
 
 <script>
 import MutedUserEntry from '~/components/MutedUserEntry';
-import validatePropUsers from '~/lib/validateProp/users';
+import validatePropArray from '~/lib/validateProp/array';
 
 // props
 export let users;
 
-$: validatePropUsers(users);
+$: validatePropArray(users);
 </script>
 
 

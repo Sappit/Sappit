@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header text-muted">
       <UserLink username={user.name}/>
-      <UsertagBadge name={user.name}/>
+      <UsertagBadge username={user.name}/>
       <TimeAgo value={user.date}/>
       <span>{user.note}</span>
     </div>
@@ -34,7 +34,7 @@ import UsertagBadge from '~/components/UsertagBadge';
 import TimeAgo from '~/components/TimeAgo';
 import UserLink from '~/components/UserLink';
 import ShowSource from '~/components/ShowSource';
-import validatePropUser from '~/lib/validateProp/user';
+import validatePropObject from '~/lib/validateProp/object';
 import { oneOpen } from '~/lib/open';
 
 
@@ -42,5 +42,5 @@ import { oneOpen } from '~/lib/open';
 export let user;
 let show = oneOpen();
 
-$: validatePropUser(user);
+$: validatePropObject(user);
 </script>

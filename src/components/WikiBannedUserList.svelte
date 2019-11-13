@@ -1,18 +1,18 @@
 <div class="wikibanned-users-list">
-  {#each users.data.children as user (user.name)}
+  {#each users as user (user.name)}
     <WikiBannedUserEntry {user} />
   {/each}
 </div>
 
 <script>
 import WikiBannedUserEntry from '~/components/WikiBannedUserEntry';
-import validatePropUsers from '~/lib/validateProp/users';
+import validatePropArray from '~/lib/validateProp/array';
 
 
 // props
 export let users;
 
-$: validatePropUsers(users);
+$: validatePropArray(users);
 </script>
 
 

@@ -76,7 +76,7 @@
           {#if post.edited}*{/if}
           by <UserLink username={post.author} />
           <FlairBadge item={post} type="author"/>
-          <UsertagBadge item={post} type="author"/>
+          <UsertagBadge username={post.author}/>
           <GildedBadge item={post}/>
           to
           <SubredditLink subreddit={post.subreddit}/>

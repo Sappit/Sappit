@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header text-muted">
       <UserLink username={user.name} />
-      <UsertagBadge name={user.name}/>
+      <UsertagBadge username={user.name}/>
       <TimeAgo value={user.date} />
       {user.note}
     </div>

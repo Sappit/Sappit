@@ -1,15 +1,15 @@
-{#each users.data.children as user (user.name)}
+{#each users as user (user.name)}
   <BannedUserEntry {user}/>
 {/each}
 
 <script>
 import BannedUserEntry from '~/components/BannedUserEntry';
-import validatePropUsers from '~/lib/validateProp/users';
+import validatePropArray from '~/lib/validateProp/array';
 
 // props
 export let users;
 
-$: validatePropUsers(users);
+$: validatePropArray(users);
 
 </script>
 

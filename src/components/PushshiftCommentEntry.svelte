@@ -14,7 +14,7 @@
         <span class="badge badge-secondary">[locked]</span>
       {/if} -->
       <FlairBadge item={comment} type="author"/>
-      <UsertagBadge item={comment} type="author"/>
+      <UsertagBadge username={comment.author}/>
       <GildedBadge item={comment}/>
       {#if comment.author_patreon_flair}
         <span class="badge badge-secondary">[patreon]</span>

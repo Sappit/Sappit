@@ -59,7 +59,6 @@
 
 <script>
 import get from 'lodash/get';
-import UsertagBadge from '~/components/UsertagBadge';
 import TimeAgo from '~/components/TimeAgo';
 import UserLink from '~/components/UserLink';
 import ShowSource from '~/components/ShowSource';

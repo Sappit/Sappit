@@ -43,7 +43,7 @@ let success = null;
 let username = '';
 
 $: validatePropBoolean(saving);
-$: validatePropUsername(username);
+$: !username || validatePropUsername(username);
 $: isSaveDisabled = saving || !username;
 
 onMount(() => {

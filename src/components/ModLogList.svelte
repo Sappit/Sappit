@@ -1,5 +1,5 @@
 <div class="banned-users-list">
-  {#each items.data.children as log (log.id)}
+  {#each items as log (log.id)}
     <ModLogEntry {log} />
   {/each}
 </div>

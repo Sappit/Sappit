@@ -14,5 +14,6 @@ export default function undata (data) {
 
     return data;
   }
-  console.warn('unhandled undata kind: '+data.kind);
+  // console.warn('unhandled undata kind: '+data.kind, data);
+  return data;
 }

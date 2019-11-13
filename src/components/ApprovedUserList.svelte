@@ -1,17 +1,17 @@
 <div class="approved-users-list">
-  {#each users.data.children as user (user.name)}
+  {#each users as user (user.name)}
     <ApprovedUserEntry {user} />
   {/each}
 </div>
 
 <script>
 import ApprovedUserEntry from '~/components/ApprovedUserEntry';
-import validatePropUsers from '~/lib/validateProp/users';
+import validatePropArray from '~/lib/validateProp/array';
 
 // props
 export let users;
 
-$: validatePropUsers(users);
+$: validatePropArray(users);
 </script>
 
 

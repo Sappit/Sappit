@@ -1,17 +1,17 @@
 <div class="moderator-users-list">
-  {#each users.data.children as user (user.name)}
+  {#each users as user (user.name)}
     <ModeratorUserEntry {user}/>
   {/each}
 </div>
 
 <script>
 import ModeratorUserEntry from '~/components/ModeratorUserEntry';
-import validatePropUsers from '~/lib/validateProp/users';
+import validatePropArray from '~/lib/validateProp/array';
 
 // props
 export let users;
 
-$: validatePropUsers(users);
+$: validatePropArray(users);
 </script>
 
 
