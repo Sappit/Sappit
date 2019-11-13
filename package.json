@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "PORT=10080 sapper dev",
     "build": "sapper build",
-    "export": "sapper export",
+    "export": "sapper export && netlify-lambda build ./functions/",
     "lambda": "netlify-lambda serve .",
     "lint": "eslint src/ --ext svelte",
     "sass": "node-sass --output-style=compressed --source-map=true src/sass/unorganized.sass static/css/unorganized.css",
@@ -32,6 +32,7 @@
     "lodash": "^4.17.15",
     "mark.js": "^8.11.1",
     "mini-css-extract-plugin": "^0.8.0",
+    "netlify-lambda": "^1.6.3",
     "node-sass": "^4.13.0",
     "nodemon": "^1.19.4",
     "polka": "next",
@@ -42,7 +43,8 @@
     "sql-formatter": "^2.3.3",
     "svelte-ace-editor": "^0.0.1",
     "svelte-backtotop": "^0.0.0",
-    "svelte-preprocess": "^3.2.0-alpha.2"
+    "svelte-preprocess": "^3.2.0-alpha.2",
+    "tumblr.js": "^2.0.2"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
