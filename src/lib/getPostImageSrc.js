@@ -6,6 +6,7 @@ export default function getPostImageSrc (post) {
   let src;
   let path;
 
+// full images: last to first
   const srcPaths = [
     'thumbnail',
     // @todo should we attempt to embed videos?

@@ -131,6 +131,17 @@
           <TumblrShareButton
             on:click={$show.toggleTumblrshare}
           />
+
+          {#if (post.mod_reports && post.mod_reports.length > 0) || (post.user_reports && post.user_reports.length > 0)}
+            <span class="btn-see-reports"
+                on:click|preventDefault|stopPropagation={$show.toggleReports}>
+              <i class="fa fa-fw fa-btn fa-code"/>
+              reports (
+              {#if post.user_reports && post.user_reports.length > 0} User: { post.user_reports.length }{/if}
+              {#if post.mod_reports && post.mod_reports.length > 0} Mod: { post.mod_reports.length }{/if}
+              )
+            </span>
+          {/if}
           {#if post.user_reports && post.user_reports.length > 0}
             <span class="btn-see-reports" on:click|preventDefault|stopPropagation={$show.toggleReports}>
               <i class="fa fa-fw fa-btn fa-megaphone"/>
@@ -181,10 +192,15 @@
           <TumblrShareForm parent={post} on:created-post={onTumblrShareCreated} on:close={$show.toggleTumblrshare}/>
         {/if}
         {#if $show.reports}
+          {#if post.mod_reports && post.mod_reports.length > 0}
+            <div class="alert alert-danger">
+              <ShowSource value={post.mod_reports} />
+            </div>
+          {/if}
           {#if post.user_reports && post.user_reports.length > 0}
-          <div class="alert alert-danger">
-            <ShowSource value={post.user_reports} />
-          </div>
+            <div class="alert alert-danger">
+              <ShowSource value={post.user_reports} />
+            </div>
           {/if}
           {#if post.user_reports_dismissed && post.user_reports_dismissed.length > 0}
             <div class="alert alert-info">

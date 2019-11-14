@@ -1,11 +1,12 @@
 import get from 'lodash/get';
 import isValidImageSrc from '~/lib/isValidImageSrc';
 
+// thumbnails: first to last
 const srcPaths = [
   'thumbnail',
   // @todo should we attempt to embed videos?
   // 'preview.images.0.variants.mp4.source.url',
-  'preview.images.0.variants.gif.source.url',
+  // 'preview.images.0.variants.gif.source.url',
   'preview.images.0.resolutions.0.url',
   'preview.images.0.source.url',
 ];

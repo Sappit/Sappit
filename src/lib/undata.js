@@ -8,6 +8,11 @@ export default function undata (data) {
 
     data = data.data;
 
+    // not yet implemented, takes up space
+    delete data.all_awardings;
+    // "This attribute is deprecated. Please use mod_reports and user_reports instead."
+    delete data.report_reasons;
+
     if (data.replies && data.replies.kind === 'Listing') {
       data.replies = map(get(data, 'replies.data.children'), undata);
     }

@@ -16,19 +16,24 @@
   </div>
   <hr>
   <h6>queue</h6>
-  {#each $list as item, index (item.name+item.createdAt)}
+  {#each safeList as item}
     <QueueEntry {item}/>
   {/each}
   <hr>
   <h6>done</h6>
-  {#each $doneList as item, index (item.name+item.createdAt)}
+  {#each safeDoneList as item}
     <QueueEntry {item}/>
   {/each}
 </div>
 
 <script>
+import filter from 'lodash/filter'
 import QueueEntry from '~/components/QueueEntry';
 import { list, flush, reverse, shuffle, doneList } from '~/store/queue';
 
+$: safeList = filter($list, Boolean)
+$: safeDoneList = filter($doneList, Boolean)
+// $: console.log($list)
+// $: console.log($doneList)
 $: moreThanOne = $list.length > 1
 </script>

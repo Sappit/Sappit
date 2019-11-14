@@ -188,7 +188,9 @@ function checkIfShouldShowSubreddit(comment, $page) {
 }
 
 onMount(() => {
-  if (get(comment, 'user_reports.length') > 0) {
+  if (get(comment, 'mod_reports.length') > 0) {
+    $show = 'options';
+  } else if (get(comment, 'user_reports.length') > 0) {
     $show = 'options';
   }
 })

@@ -126,11 +126,14 @@
           <ReportButton item={comment}/>
         {/if}
         <!-- <CrossPostButton on:click={$show.toggleCrosspost} /> -->
-        {#if comment.user_reports && comment.user_reports.length > 0}
+        {#if (comment.mod_reports && comment.mod_reports.length > 0) || (comment.user_reports && comment.user_reports.length > 0)}
           <span class="btn-see-reports"
               on:click|preventDefault|stopPropagation={$show.toggleReports}>
             <i class="fa fa-fw fa-btn fa-code"/>
-            <span>reports ({ comment.user_reports.length })</span>
+            reports (
+            {#if comment.user_reports && comment.user_reports.length > 0} User: { comment.user_reports.length }{/if}
+            {#if comment.mod_reports && comment.mod_reports.length > 0} Mod: { comment.mod_reports.length }{/if}
+            )
           </span>
         {/if}
         {#if comment.user_reports_dismissed && comment.user_reports_dismissed.length > 0}
@@ -167,10 +170,15 @@
       />
     {/if} -->
     {#if $show.reports && !collapsed}
+      {#if comment.mod_reports && comment.mod_reports.length > 0}
+        <div class="alert alert-danger">
+          <ShowSource value={comment.mod_reports} />
+        </div>
+      {/if}
       {#if comment.user_reports && comment.user_reports.length > 0}
-      <div class="alert alert-danger">
-        <ShowSource value={comment.user_reports} />
-      </div>
+        <div class="alert alert-danger">
+          <ShowSource value={comment.user_reports} />
+        </div>
       {/if}
       {#if comment.user_reports_dismissed && comment.user_reports_dismissed.length > 0}
         <div class="alert alert-info">
