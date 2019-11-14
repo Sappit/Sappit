@@ -46,13 +46,13 @@
       <div class="pull-right">
         <i
           class="fa fa-fw fa-btn btn-collapse"
-          class:fa-plus={collapsed}
-          class:fa-minus={!collapsed}
+          class:fa-plus={comment.collapsed}
+          class:fa-minus={!comment.collapsed}
           on:click|preventDefault|stopPropagation={toggleCollapsed}
         />
       </div>
     </div>
-    {#if !collapsed}
+    {#if !comment.collapsed}
       <div class="card-body">
         <ItemHtml item={comment}/>
         <div class="options-icons pull-right">
@@ -77,7 +77,7 @@
         </div>
       </div>
     {/if}
-    {#if !collapsed && ($show.options || $show.source)}
+    {#if !comment.collapsed && ($show.options || $show.source)}
       <div class="card-footer text-muted bg-light">
         <AddToQueueButton item={comment}/>
         <a rel="nofollow" target="_blank" href="https://www.reddit.com{comment.permalink}">
@@ -148,28 +148,28 @@
         </span>
       </div>
     {/if}
-    {#if $show.reply && !collapsed}
+    {#if $show.reply && !comment.collapsed}
       <CommentForm
        parent={comment}
        on:created-comment={onCommentCreated}
        on:close={$show.toggleReply}
       />
     {/if}
-    {#if $show.edit && !collapsed}
+    {#if $show.edit && !comment.collapsed}
       <CommentForm
         comment={comment}
         on:updated-comment={onCommentUpdated}
         on:close={$show.toggleEdit}
       />
     {/if}
-    <!-- {#if $show.crosspost && !collapsed}
+    <!-- {#if $show.crosspost && !comment.collapsed}
       <PostForm
         parent={comment}
         on:created-post={onCrossPostCreated}
         on:close={$show.toggleCrosspost}
       />
     {/if} -->
-    {#if $show.reports && !collapsed}
+    {#if $show.reports && !comment.collapsed}
       {#if comment.mod_reports && comment.mod_reports.length > 0}
         <div class="alert alert-danger">
           <ShowSource value={comment.mod_reports} />
@@ -186,7 +186,7 @@
         </div>
       {/if}
     {/if}
-    {#if $show.source && !collapsed}
+    {#if $show.source && !comment.collapsed}
       <ShowSource value={comment} />
     {/if}
   </div>
@@ -235,13 +235,11 @@ const { page } = stores();
 
 // props
 export let comment;
-let collapsed;
 let show = oneOpen();
 
 $: validatePropComment(comment);
 
-$: collapsed = !!comment.collapsed;
-$: validatePropBoolean(collapsed);
+// $: validatePropBoolean(collapsed);
 $: isRemoved = isItemRemoved(comment)
 $: parentTo = getCommentParentToUrl(comment)
 $: linkToFullComments = getCommentLinkToFullComments(comment, $page)
@@ -261,10 +259,12 @@ onMount(() => {
 })
 
 function toggleCollapsed($event) {
-  collapsed = !collapsed;
+  comment.collapsed = !comment.collapsed;
+  comment = comment;
 }
 function setCollapsed(value) {
-  collapsed = !!value;
+  comment.collapsed = !!value;
+  comment = comment;
 }
 function onCommentUpdated(updatedComment) {
   // @todo

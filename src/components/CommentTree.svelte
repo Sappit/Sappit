@@ -4,13 +4,13 @@
   <div class="comment-tree has-comments">
     {#each comments as comment, index (comment.id)}
       {#if comment.kind === 't1'}
-        <CommentEntry {comment}/>
+        <CommentEntry bind:comment={comment}/>
         {#if shouldShowReplies(comment)}
           <svelte:self comments={comment.replies} />
         {/if}
       {:else if comment.kind === 'more'}
         <LoadMoreCommentsEntry
-          item={comment}
+          bind:item={comment}
           on:append-children={appendChildren}
           on:remove-more={removeMore}
         />

@@ -1,145 +1,134 @@
 <span
-  class="btn-ban"
-  class:disabled={(busy || isBanned)}
-  disabled={(busy || isBanned)}
+  class="pointer-cursor"
   class:text-success={isBanned}
   on:click|preventDefault|stopPropagation={prompt}
 >
-  {#if busy}
-    <i class="fa fa-fw fa-btn fa-spinner fa-spin"/>
-    {#if isBanned}
-      unbanning
-    {:else}
-      banning
-    {/if}
+  <i class="fa fa-fw fa-btn fa-block"/>
+  {#if isBanned}
+    banned
   {:else}
-    <i class="fa fa-fw fa-btn fa-floppy"/>
-    {#if isBanned}
-      banned
-    {:else}
-      ban
-    {/if}
+    ban
   {/if}
-  {#if showingBanModal}
-    <div class="card">
-      <div class="card-header">
-        Ban User
-      </div>
-      <div class="card-body">
-        {#if existingBan}
-          <div class="alert alert-warning">
-            { name } is already banned!
-            <TimeAgo value={existingBan.date} />
-            {#if existingBan.note}
-              <span class="badge badge-secondary">note: { existingBan.note }</span>
+</span>
+{#if showingBanModal}
+  <div class="card border-warning">
+    <div class="card-header">
+      Ban User
+    </div>
+    <div class="card-body">
+      {#if existingBan}
+        <div class="alert alert-warning">
+          { ban_username } is already banned!
+          <TimeAgo value={existingBan.date} />
+          {#if existingBan.note}
+            <span class="badge badge-secondary">note: { existingBan.note }</span>
+          {/if}
+        </div>
+      {/if}
+      <a href="/r/{item.subreddit}/about/banned">Banned Users Page</a>
+      {#if !existingBan}
+        <div class="form-group">
+          <label>who to ban:</label>
+          <input
+            class="form-control"
+            bind:value={ban_username}
+          />
+        </div>
+        <div class="form-group">
+          <select
+            class="form-control r-select"
+            id="exampleFormControlSelect1"
+            bind:value={selectedReason}
+          >
+            {#if rules && rules.length}
+            <optgroup label="Subreddit Rules">
+              {#each rules as rule, index}
+                <option value={rule}>
+                  {rule.short_name || rule.violation_reason}
+                </option>
+              {/each}
+            </optgroup>
             {/if}
-          </div>
+            {#if site_rules && site_rules.length}
+            <optgroup label="Site Rules">
+              {#each site_rules as rule, index}
+                <option value={rule}>
+                  {rule}
+                </option>
+              {/each}
+            </optgroup>
+            {/if}
+            <option value="other">other</option>
+          </select>
+          {#if selectedReason && selectedReason.description_html}
+            <div class="alert alert-info">{@html selectedReason.description_html}</div>
+          {/if}
+        </div>
+        <div class="form-group">
+          <label>duration:</label>
+          <input
+            class="form-control"
+            value={duration}
+            on:change={(event) => duration = event.target.value}
+          />
+          <em class="text-muted">1 to 999, blank is permanent</em>
+        </div>
+        <div class="form-group">
+          <label>Mod Log Note:</label>
+          <input
+            class="form-control"
+            value={note}
+            on:change={(event) => note = event.target.value}
+          />
+        </div>
+        <div class="form-group">
+          <label>Ban Message:</label>
+          <textarea
+            class="form-control"
+            value={ban_message}
+            on:input={(event) => ban_message = event.target.value}
+          ></textarea>
+        </div>
+        {#if error}
+          <ErrorAlert value={error} />
         {/if}
-        <a href="/r/{item.subreddit}/about/banned">Banned Users Page</a>
+        {#if success}
+          <div class="alert alert-success"><tt><pre>{success}</pre></tt></div>
+        {/if}
+      {/if}
+    </div>
+    <div class="card-footer">
+      <div class="btn-group float-right">
+        {#if !success}
+          <button
+            class="btn btn-sm btn-primary"
+            class:disabled={(busy)}
+            disabled={(busy)}
+            on:click|preventDefault|stopPropagation={() => showingBanModal=false}
+          >CANCEL</button>
+        {/if}
         {#if !existingBan}
-          <div class="form-group">
-            <label>who to ban:</label>
-            <input
-              class="form-control"
-              bind:value={name}
-            />
-          </div>
-          <div class="form-group">
-            <select
-              class="form-control r-select"
-              id="exampleFormControlSelect1"
-              bind:value={selectedReason}
-            >
-              {#if rules && rules.length}
-              <optgroup label="Subreddit Rules">
-                {#each rules as rule, index}
-                  <option value={rule}>
-                    {rule.short_name || rule.violation_reason}
-                  </option>
-                {/each}
-              </optgroup>
-              {/if}
-              {#if site_rules && site_rules.length}
-              <optgroup label="Site Rules">
-                {#each site_rules as rule, index}
-                  <option value={rule}>
-                    {rule}
-                  </option>
-                {/each}
-              </optgroup>
-              {/if}
-              <option value="other">other</option>
-            </select>
-            {#if selectedReason && selectedReason.description_html}
-              <div class="alert alert-info">{@html selectedReason.description_html}</div>
-            {/if}
-          </div>
-          <div class="form-group">
-            <label>duration:</label>
-            <input
-              class="form-control"
-              value={duration}
-              on:change={(event) => duration = event.target.value}
-            />
-            <em class="text-muted">1 to 999, blank is permanent</em>
-          </div>
-          <div class="form-group">
-            <label>Mod Log Note:</label>
-            <input
-              class="form-control"
-              value={note}
-              on:change={(event) => note = event.target.value}
-            />
-          </div>
-          <div class="form-group">
-            <label>Ban Message:</label>
-            <textarea
-              class="form-control"
-              value={ban_message}
-              on:input={(event) => ban_message = event.target.value}
-            ></textarea>
-          </div>
-          {#if error}
-            <ErrorAlert value={error} />
-          {/if}
           {#if success}
-            <div class="alert alert-success"><tt><pre>{success}</pre></tt></div>
-          {/if}
-        {/if}
-      </div>
-      <div class="w-100 card-header">
-        <div class="btn-group float-right">
-          {#if !success}
             <button
               class="btn btn-sm btn-primary"
               class:disabled={(busy)}
               disabled={(busy)}
               on:click|preventDefault|stopPropagation={() => showingBanModal=false}
-            >CANCEL</button>
+            >DONE</button>
           {/if}
-          {#if !existingBan}
-            {#if success}
-              <button
-                class="btn btn-sm btn-primary"
-                class:disabled={(busy)}
-                disabled={(busy)}
-                on:click|preventDefault|stopPropagation={() => showingBanModal=false}
-              >DONE</button>
-            {/if}
-            {#if !success}
-              <button
-                class="btn btn-sm btn-primary"
-                class:disabled={(busy)}
-                disabled={(busy)}
-                on:click|preventDefault|stopPropagation={ban}
-              >BAN</button>
-            {/if}
+          {#if !success}
+            <button
+              class="btn btn-sm btn-primary"
+              class:disabled={(busy)}
+              disabled={(busy)}
+              on:click|preventDefault|stopPropagation={ban}
+            >BAN</button>
           {/if}
-        </div>
+        {/if}
       </div>
     </div>
-  {/if}
-</span>
+  </div>
+{/if}
 
 <script>
 import isString from 'lodash/isString';
@@ -164,7 +153,7 @@ let rules = null;
 let site_rules = null;
 let existingBan = null;
 let selectedReason = null;
-let name = null;
+let ban_username = null;
 let duration = null;
 let note = null;
 let ban_message = null;
@@ -172,11 +161,11 @@ let ban_message = null;
 $: validatePropItem(item);
 $: validatePropBoolean(busy);
 $: validatePropBoolean(showingBanModal);
-$: rules===null || validatePropArray(showingBanModal);
+$: rules===null || validatePropArray(rules);
 $: site_rules===null || validatePropArray(site_rules);
 $: existingBan===null || validatePropObject(existingBan);
 $: selectedReason===null || validatePropObject(selectedReason);
-$: name===null || validatePropString(name);
+$: ban_username===null || validatePropString(ban_username);
 $: duration===null || validatePropString(duration);
 $: note===null || validatePropString(note);
 $: ban_message===null || validatePropString(ban_message);
@@ -184,26 +173,26 @@ $: isBanned = item.isSappitBanned
 
 async function prompt($event) {
   if (showingBanModal) return;
-  const { subreddit, name } = item;
+  const { subreddit } = item;
   const responses = {};
 
   try {
     busy = true;
     showingBanModal = true;
 
-    name = item.author;
+    ban_username = item.author
 
     // check if already banned
     const bannedListReponse = await reddit.get(
       `/r/${subreddit}/about/banned`,
       {
         params: {
-          user: name,
+          user: ban_username,
         },
       },
     );
 
-    existingBan = bannedListReponse.data.data.children[0];
+    existingBan = bannedListReponse.data.data.children[0] || null;
 
     const srRulesResponse = await reddit.get(
       `/r/${subreddit}/about/rules`,
@@ -246,7 +235,7 @@ async function ban(payload) {
       // duration: an integer between 1 and 999,
       duration: duration,
       // name: 'le banned username',
-      name: name,
+      name: ban_username,
       // note: 'private note for mod team',
       note: note,
       api_type: 'json',
