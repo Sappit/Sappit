@@ -7,6 +7,7 @@ import axiosRetry from 'axios-retry';
 import * as authStore from '~/store/auth';
 import * as apilogStore from '~/store/apilog';
 import * as masstaggerStore from '~/store/masstagger';
+import { mtEnable } from '~/store/settings';
 import { get as store_get } from 'svelte/store';
 import now from '~/lib/now';
 
@@ -84,7 +85,9 @@ client.interceptors.response.use(
   async response => {
     apilogStore.add(response);
 
-    /* no await */ masstaggerStore.fetchTags(response && response.data);
+    if (store_get(mtEnable)) {
+      /* no await */ masstaggerStore.fetchTags(response && response.data);
+    }
 
     lastResponseHeaders = response.headers;
     return response;

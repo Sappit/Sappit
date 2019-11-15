@@ -1,84 +1,79 @@
 <span
   class="btn-contributor"
-  class:disabled={busy || isContributorned}
-  disabled={busy || isContributorned}
-  class:text-success={isContributorned}
+  class:text-success={item.isSappitContributorned}
   on:click|preventDefault|stopPropagation={prompt}
 >
-  {#if busy}
-    <i class="fa fa-fw fa-btn fa-spinner fa-spin"/>
-  {:else}
-    <i class="fa fa-fw fa-btn fa-plus"/>
-  {/if}
-  {#if busy && isContributorned}
-    <span>uncontributorning</span>
-  {:else if busy && !isContributorned}
-    <span>contributorning</span>
-  {:else if isContributorned}
+  <i class="fa fa-fw fa-btn fa-plus"/>
+  {#if item.isSappitContributorned}
     <span>contributorned</span>
   {:else}
     <span>contributor</span>
   {/if}
-  {#if false}
-  <b-modal v-model="showingContributorModal" title="Contributor User" size="md"
-      no-close-on-backdrop="no-close-on-backdrop" scrollable="scrollable" lazy="lazy"
-      on:click|preventDefault|stopPropagation>
-    {#if existingContributor}
-    <div class="alert alert-warning">
-      { name } is already contributorned!
-      <TimeAgo value={existingContributor.date} />
-      {#if existingContributor.note}
-        <span class="badge badge-secondary">note: { existingContributor.note }</span>
-      {/if}
+</span>
+
+{#if showingContributorModal}
+  <div class="card border-info">
+    <div class="card-header">
+      Add User as Contributor
     </div>
-    {/if}
-    <a href="/r/{item.subreddit}/about/contributors">Contributors Page</a>
-    {#if !existingContributor}
-      <div class="form-group">
-        <label>who to contributor:</label>
-        <input
-          class="form-control"
-          bind:value={name}
-        />
-      </div>
-      {#if success}
-        <div class="alert alert-success">{success}</div>
-      {/if}
-      {#if error}
-        <ErrorAlert value={error} />
-      {/if}
-      <div class="w-100" v-slot="modal-footer">
-        <div class="btn-group float-right">
-          {#if !success}
-            <button
-              class="btn btn-sm btn-primary"
-              class:disabled={(busy)}
-              disabled={(busy)}
-              on:click|preventDefault|stopPropagation={() => showingContributorModal=false}
-            >CANCEL</button>
-          {/if}
-          {#if success}
-            <button
-              class="btn btn-sm btn-primary"
-              class:disabled={(busy)}
-              disabled={(busy)}
-              on:click|preventDefault|stopPropagation={() => showingContributorModal=false}
-            >DONE</button>
-          {/if}
-          {#if !success}
-            <button
-              class="btn btn-sm btn-primary"
-              class:disabled={(busy)}
-              disabled={(busy)}
-              on:click|preventDefault|stopPropagation={contributor}
-            >ADD</button>
+    <div class="card-body">
+      {#if existingContributor}
+        <div class="alert alert-warning">
+          { add_username } is already contributorned!
+          <TimeAgo value={existingContributor.date} />
+          {#if existingContributor.note}
+            <span class="badge badge-secondary">note: { existingContributor.note }</span>
           {/if}
         </div>
+      {/if}
+      <a href="/r/{item.subreddit}/about/contributors">Contributors Page</a>
+      {#if !existingContributor}
+        <div class="form-group">
+          <label>who to contributor:</label>
+          <input
+            class="form-control"
+            bind:value={add_username}
+          />
+        </div>
+        {#if success}
+          <div class="alert alert-success">{success}</div>
+        {/if}
+        {#if error}
+          <ErrorAlert value={error} />
+        {/if}
+      {/if}
+    </div>
+    <div class="card-footer w-100">
+      <div class="btn-group float-right">
+        {#if !success}
+          <button
+            class="btn btn-sm btn-primary"
+            class:disabled={(busy)}
+            disabled={(busy)}
+            on:click|preventDefault|stopPropagation={() => showingContributorModal=false}
+          >CANCEL</button>
+        {/if}
+        {#if success}
+          <button
+            class="btn btn-sm btn-primary"
+            class:disabled={(busy)}
+            disabled={(busy)}
+            on:click|preventDefault|stopPropagation={() => showingContributorModal=false}
+          >DONE</button>
+        {/if}
+        {#if !success}
+          <button
+            class="btn btn-sm btn-primary"
+            class:disabled={(busy)}
+            disabled={(busy)}
+            on:click|preventDefault|stopPropagation={contributor}
+          >ADD</button>
+        {/if}
       </div>
-    {/if}
-  </b-modal>
-  {/if}
-</span>
+    </div>
+  </div>
+{/if}
+
 
 <script>
 import isString from 'lodash/isString';
@@ -100,16 +95,16 @@ let busy = false;
 let error = null;
 let success = null;
 let existingContributor = null;
-let name = null;
+let add_username = null;
 let duration = null;
 
+$: console.log(item);
 $: validatePropItem(item);
 $: validatePropBoolean(busy);
 $: validatePropBoolean(showingContributorModal);
 $: existingContributor===null || validatePropContributor(existingContributor);
-$: name===null || validatePropString(name);
+$: add_username===null || validatePropString(add_username);
 $: duration===null || validatePropString(duration);
-$: isContributorned = item && item.isSappitContributorned;
 
 async function prompt($event) {
   if (showingContributorModal) return;
@@ -120,20 +115,19 @@ async function prompt($event) {
     busy = true;
     showingContributorModal = true;
 
-    name = item.author;
+    add_username = item.author;
 
     // check if already contributorned
     const contributornedListReponse = await reddit.get(
       `/r/${subreddit}/about/contributors`,
       {
         params: {
-          user: name,
+          user: add_username,
         },
       },
     );
 
-    existingContributor =
-      contributornedListReponse.data.data.children[0];
+    existingContributor = contributornedListReponse.data.data.children[0] || null;
   } finally {
     busy = false;
   }
@@ -145,8 +139,8 @@ async function contributor(payload) {
   try {
     busy = true;
     const response = await reddit.post(`/r/${subreddit}/api/friend`, {
-      // name: 'le contributorned username',
-      name: name,
+      // add_username: 'le contributorned username',
+      name: add_username,
       api_type: 'json',
       type: 'contributor',
     });

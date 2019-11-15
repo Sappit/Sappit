@@ -83,7 +83,8 @@ import validatePropItem from '~/lib/validateProp/item';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import validatePropString from '~/lib/validateProp/string';
 import validatePropUsername from '~/lib/validateProp/username';
-// import { mtFind } from '~/store/masstagger'
+import { cache } from '~/store/masstagger'
+import { mtEnable } from '~/store/settings'
 
 // props
 export let username = null;
@@ -103,7 +104,7 @@ $: validatePropString(add_tag);
 $: username===null || validatePropUsername(username)
 $: username_uc = username.toUpperCase()
 $: userIsBot = isBot(username)
-$: masstaggerSubs = ''
+$: masstaggerSubs =  (username_uc && $mtEnable && $cache[username_uc]) || ''
 // $: masstaggerSubs = mtFind ? mtFind(username) : ''
     // function masstaggerSubs() {
     //   const value = this.$store.getters['masstagger/find'](this.username);
