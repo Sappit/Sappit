@@ -89,7 +89,7 @@
           <i class="fa fa-fw fa-btn fa-link-ext"/>
           <span>permalink</span>
         </a>
-        <SaveButton item={comment}/>
+        <SaveButton bind:item={comment}/>
         {#if parentTo}
           <a href={parentTo}>
             <i class="fa fa-fw fa-btn fa-level-up"/>
@@ -112,18 +112,18 @@
         {/if}
 
         {#if comment.can_mod_post}
-          <SpamButton item={comment}/>
-          <RemoveButton item={comment}/>
-          <BanButton item={comment}/>
-          <ApproveButton item={comment}/>
-          <AddContributorButton item={comment}/>
-          <LockButton item={comment}/>
+          <SpamButton bind:item={comment}/>
+          <RemoveButton bind:item={comment}/>
+          <BanButton bind:item={comment}/>
+          <ApproveButton bind:item={comment}/>
+          <AddContributorButton bind:item={comment}/>
+          <LockButton bind:item={comment}/>
         {/if}
         {#if isAuthor}
-          <DeleteButton item={comment}/>
+          <DeleteButton bind:item={comment}/>
         {/if}
         {#if !isAuthor}
-          <ReportButton item={comment}/>
+          <ReportButton bind:item={comment}/>
         {/if}
         <!-- <CrossPostButton on:click={$show.toggleCrosspost} /> -->
         {#if (comment.mod_reports && comment.mod_reports.length > 0) || (comment.user_reports && comment.user_reports.length > 0)}
