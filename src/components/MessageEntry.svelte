@@ -77,8 +77,8 @@
         {/if}
         {#if !isAuthor}
           <ReportButton item={message}/>
-          <markunreadbutton item={message}/>
-          <blockuserbutton item={message}/>
+          <MarkUnreadButton item={message}/>
+          <BlockUserButton item={message}/>
         {/if}
         <span class="btn-see-source" on:click|preventDefault|stopPropagation={$show.toggleSource}>
           <i class="fa fa-fw fa-btn fa-code"/>
