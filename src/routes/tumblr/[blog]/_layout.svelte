@@ -29,9 +29,17 @@
           Drafts ({ blog.drafts })
         </a>
       </li>
+      <li class="nav-item">
+        <a href="/tumblr/{blog.name}/submissions" class="nav-link"
+          class:active={$page.path.includes(`/tumblr/${blog.name}/submissions`)}>
+          Submissions ({ blog.drafts })
+        </a>
+      </li>
     {/if}
   </ul>
-  <slot {blog}/>
+  {#if blog}
+    <slot {blog}/>
+  {/if}
 </div>
 
 <script>

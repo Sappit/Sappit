@@ -42,6 +42,13 @@ export function fetchBlogQueue ({ blogName, options }) {
   });
 }
 
+export function fetchBlogSubmissions ({ blogName, options }) {
+  return tumblr.post('/blogSubmissions', {
+    ...apikeys(),
+    blogName,
+    options,
+  });
+}
 
 export function fetchUserDashboard ({ options }) {
   return tumblr.post('/userDashboard', {
