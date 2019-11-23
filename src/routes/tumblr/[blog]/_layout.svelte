@@ -23,6 +23,12 @@
           Queue ({ blog.queue })
         </a>
       </li>
+      <li class="nav-item">
+        <a href="/tumblr/{blog.name}/drafts" class="nav-link"
+          class:active={$page.path.includes(`/tumblr/${blog.name}/drafts`)}>
+          Drafts ({ blog.drafts })
+        </a>
+      </li>
     {/if}
   </ul>
   <slot {blog}/>
