@@ -6,21 +6,22 @@
       name="selected_blog"
       bind:value={selected_blog}
     >
+      <option value={null}>select blog</option>
       {#each blogNames as value (value)}
         <option {value}>{value}</option>
       {/each}
     </select>
   </div>
   {#if selected_blog && selectedBlog}
-    {#each fields as field, key (key)}
+    {#each fields as field, index (field.name)}
       <div class="form-group row">
         {#if !field.kinds || field.kinds.includes(dirty.kind)}
-          <label class="col-6">{key}</label>
+          <label class="col-6">{field.name}</label>
           {#if field.type === 'select'}
             <select
               class="form-control col-6 r-select"
-              name={key}
-              bind:value={dirty[key]}
+              name={field.name}
+              bind:value={dirty[field.name]}
             >
               {#each field.options as {value, text} (value)}
                 <option {value}>{text}</option>
@@ -29,17 +30,17 @@
           {:else if field.type === 'textarea'}
             <textarea
               class="form-control col-6"
-              value={dirty[key]}
-              on:input={(event) => dirty[key] = event.target.value}
-              name={key}
+              value={dirty[field.name]}
+              on:input={(event) => dirty[field.name] = event.target.value}
+              name={field.name}
               rows="3"
             ></textarea>
           {:else}
             <input
               class="form-control col-6"
-              value={dirty[key]}
-              on:input={(event) => dirty[key] = event.target.value}
-              name={key}
+              value={dirty[field.name]}
+              on:input={(event) => dirty[field.name] = event.target.value}
+              name={field.name}
             />
           {/if}
           {#if field.description && dirty.kind && typeof field.description[dirty.kind] === 'string'}
@@ -71,6 +72,7 @@
       <i class="fa fa-fw fa-btn fa-cancel"/>
       Cancel
     </button>
+    <a href="/tumblr/{selected_blog}">See {selected_blog}</a>
     {#if tumblrPosts.length}
       <div class="crossposts">
         Cross Posts:
@@ -140,8 +142,8 @@ $: validatePropBoolean(saving);
 $: validatePropArray(tumblrPosts);
 $: selected_blog===null || validatePropString(selected_blog);
 $: isSaveDisabled = saving;
-$: blogNames = map(blogs, blog => blog.name)
-$: selectedBlog = find(blogs, blog => blog.name === selected_blog)
+$: blogNames = map($blogs, blog => blog.name)
+$: selectedBlog = find($blogs, blog => blog.name === selected_blog)
 $: createBlogPost = getCreateBlogPostFn(dirty);
 
 // function set_selected_blog(value) {
@@ -175,21 +177,28 @@ onMount(() => {
 })
 
 function freshDirty() {
-  const kind = get(dirty, 'kind') || fields.kind.default(getDefaultBag());
-  const data = Object.keys(fields).reduce(
-    (carry, key) => {
-      const field = fields[key];
+  const kind = get(dirty, 'kind') || find(fields, whereNameKind).default(getDefaultBag());
+  const data = fields.reduce(
+    (carry, field) => {
       if (
-        !carry.hasOwnProperty(key) &&
+        !carry.hasOwnProperty(field.name) &&
         (!field.kinds || field.kinds.includes(kind))
       ) {
-        carry[key] = field.default(getDefaultBag());
+        carry[field.name] = field.default(getDefaultBag());
       }
       return carry;
     },
     { kind },
   );
   return data;
+}
+
+function whereNameKind (entry) {
+  return entry.name === 'kind'
+}
+
+function toName (entry) {
+  return entry.name
 }
 
 function getDefaultBag() {
@@ -213,7 +222,7 @@ function defaultBlog() {
   if (blog) {
     return blog.name;
   }
-  return get(blogs[0], 'name');
+  return get($blogs[0], 'name');
 }
 
 async function saveTumblrPost() {

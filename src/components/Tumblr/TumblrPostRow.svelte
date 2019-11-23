@@ -1,5 +1,8 @@
 <div class="row">
   <div class="col-xs-12">
+    {#if post.deleted}
+      <span class="badge badge-danger">deleted</span>
+    {/if}
     <span class="badge badge-secondary">{post.type}</span>
     <span class="badge badge-secondary">{post.state}</span>
     <!-- {#if post.date}
@@ -48,11 +51,25 @@
     {/if}
     <div>
       <div class="form-group row">
+        <label class="col-sm-2 col-form-label">state</label>
+        <select
+          class="form-control col-sm-10 r-select"
+          name="state"
+          bind:value={dirtyState}
+        >
+          {#each stateOptions as {value, text} (value)}
+            <option {value}>{text}</option>
+          {/each}
+        </select>
+      </div>
+      <div class="form-group row">
         <label class="col-sm-2 col-form-label">caption</label>
-        <input
+        <textarea
           class="form-control col-sm-10"
           bind:value={dirtyCaption}
-        />
+          name="caption"
+          rows="3"
+        ></textarea>
       </div>
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">tags</label>
@@ -121,23 +138,27 @@ import validatePropObject from '~/lib/validateProp/object';
 import validatePropTumblrpost from '~/lib/validateProp/tumblrpost';
 import { oneOpen } from '~/lib/open';
 import { onMount } from 'svelte';
+import fields from '~/lib/tumblr/fields';
 
 // props
 export let post;
 let deleting = false;
 let updating = false;
+let dirtyState = '';
 let dirtyCaption = '';
 let dirtyTags = '';
 const show = oneOpen()
+const stateOptions = find(fields, entry => entry.name === 'state').options
 
 $: validatePropTumblrpost(post);
 onMount(() => {
+  dirtyState = post.state || '';
   dirtyCaption = post.caption || '';
   dirtyTags = (post.tags || []).join(', ');
 })
 // $: validatePropObject(dirty);
 $: photos = getPostPhotos(post)
-$: noChanges = post.caption === dirtyCaption && post.tags.join(', ') === dirtyTags;
+$: noChanges = post.state === dirtyState && post.caption === dirtyCaption && post.tags.join(', ') === dirtyTags;
 
 async function updatePost($event) {
   try {
@@ -148,6 +169,7 @@ async function updatePost($event) {
         id: post.id,
         tags: dirtyTags,
         caption: dirtyCaption,
+        state: dirtyState,
       },
     });
     // post

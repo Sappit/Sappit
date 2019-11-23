@@ -8,7 +8,7 @@
     {#if blog}
       <li class="nav-item">
         <a href="/tumblr/{blog.name}" class="nav-link" class:active={$page.path}>
-          { blog.name }
+          Dashboard ({ blog.name })
         </a>
       </li>
       <li class="nav-item">

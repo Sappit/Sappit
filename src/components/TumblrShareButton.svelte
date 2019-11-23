@@ -12,4 +12,6 @@
 import { createEventDispatcher } from 'svelte';
 import { noBlogs } from '~/store/tumblr';
 const dispatch = createEventDispatcher();
+
+$: console.log($noBlogs);
 </script>

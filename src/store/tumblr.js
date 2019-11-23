@@ -15,7 +15,7 @@ export const blogs = derived(tumblrUserInfo, newUserInfoValue => {
   return get(newUserInfoValue, 'user.blogs', []);
 });
 export const noBlogs = derived(blogs, newUserInfoValue => {
-  return !(get(newUserInfoValue, 'user.blogs.length', 0) > 0);
+  return !(get(newUserInfoValue, 'length', 0) > 0);
 });
 
 export function updateBlogPost ({ blogName, options }) {
@@ -44,6 +44,14 @@ export function fetchBlogQueue ({ blogName, options }) {
 
 export function fetchBlogSubmissions ({ blogName, options }) {
   return tumblr.post('/blogSubmissions', {
+    ...apikeys(),
+    blogName,
+    options,
+  });
+}
+
+export function fetchBlogDrafts ({ blogName, options }) {
+  return tumblr.post('/blogDrafts', {
     ...apikeys(),
     blogName,
     options,

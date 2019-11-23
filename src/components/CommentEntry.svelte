@@ -245,6 +245,7 @@ $: parentTo = getCommentParentToUrl(comment)
 $: linkToFullComments = getCommentLinkToFullComments(comment, $page)
 $: isAuthor = $usernames.includes(comment.author)
 $: showSubreddit = checkIfShouldShowSubreddit(comment, $page);
+$: console.log('replies', comment.replies);
 
 function checkIfShouldShowSubreddit(comment, $page) {
   if (!comment.subreddit) return false;
@@ -268,11 +269,13 @@ function setCollapsed(value) {
 }
 function onCommentUpdated(updatedComment) {
   // @todo
+  comment = comment;
 }
-function onCommentCreated(newComment) {
+function onCommentCreated(event) {
   comment.replies = comment.replies || [];
 
-  comment.replies.push(newComment);
+  comment.replies.push(event.detail);
+  comment = comment;
 }
 function onCrossPostCreated(newPost) {
   //

@@ -34,7 +34,7 @@ import { startMinWait } from '~/lib/sleep';
 import { Kind } from '~/lib/enum';
 import now from '~/lib/now';
 import { list, add, remove, isSameEntry } from '~/store/queue';
-import validatePropItem from '~/lib/validateProp/item';
+import validatePropQueueItem from '~/lib/validateProp/queueItem';
 import validatePropBoolean from '~/lib/validateProp/boolean';
 import findIndex from 'lodash/findIndex';
 import find from 'lodash/find';
@@ -44,7 +44,7 @@ export let item;
 let busy = false;
 let error = null;
 
-$: validatePropItem(item);
+$: validatePropQueueItem(item);
 $: validatePropBoolean(busy);
 $: payload = makePayload(item);
 $: isPayloadSameEntry = e => isSameEntry(payload, e);

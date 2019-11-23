@@ -1,7 +1,8 @@
 import get from 'lodash/get';
 
-const fields = Object.freeze({
-  kind: {
+const fields = Object.freeze([
+  {
+    name: 'kind',
     type: 'select',
     options: Object.freeze([
       { value: 'text', text: 'text' },
@@ -13,20 +14,21 @@ const fields = Object.freeze({
       if (get(dirty, 'kind')) {
         return get(dirty, 'kind');
       }
-      const post_hint = get(parent, 'data.post_hint');
+      const post_hint = get(parent, 'post_hint');
       if (post_hint === 'image') {
         return 'photo';
       }
       if (post_hint === 'video') {
         return 'link';
       }
-      if (get(parent, 'data.permalink')) {
+      if (get(parent, 'permalink')) {
         return 'link';
       }
       return 'text';
     },
   },
-  state: {
+  {
+    name: 'state',
     type: 'select',
     options: Object.freeze([
       { value: 'queue', text: 'queue' },
@@ -41,8 +43,9 @@ const fields = Object.freeze({
       return 'queue';
     },
   },
-  tags: {
-    type: 'text',
+  {
+    name: 'tags',
+    type: 'textarea',
     default({ tumblrDefaultTags, selected_blog }) {
       if (selected_blog) {
         return get(tumblrDefaultTags, selected_blog) || '';
@@ -54,36 +57,40 @@ const fields = Object.freeze({
   //   type: 'text',
   //   default({ parent, tumblrDefaultTags }) { return tumblrDefaultTags || ''; },
   // },
-  caption: {
+  {
+    name: 'caption',
     kinds: ['photo', 'video'],
-    type: 'text',
+    type: 'textarea',
     default({ parent }) {
       // maybe I want to caption from a comment
-      if (get(parent, 'data.body_html')) {
-        return get(parent, 'data.body_html');
+      if (get(parent, 'body_html')) {
+        return get(parent, 'body_html') || '';
       }
-      return get(parent, 'data.title') || get(parent, 'data.link_title');
+      return get(parent, 'title') || get(parent, 'link_title') || '';
     },
     description: 'The user-supplied caption',
   },
-  link: {
+  {
+    name: 'link',
     kinds: ['photo'],
     type: 'text',
     default({ parent }) {
       return '';
-      // return get(parent, 'data.url')
-      //   || get(parent, 'data.link_url');
+      // return get(parent, 'url')
+      //   || get(parent, 'link_url');
     },
     description: 'The "click-through URL" for the photo',
   },
-  source: {
+  {
+    name: 'source',
     kinds: ['photo', 'source'],
     type: 'text',
     default({ parent }) {
       return (
-        get(parent, 'data.url') ||
-        get(parent, 'data.link_url') ||
-        get(parent, 'data.permalink')
+        get(parent, 'url') ||
+        get(parent, 'link_url') ||
+        get(parent, 'permalink') ||
+        null
       );
     },
     description: {
@@ -91,7 +98,8 @@ const fields = Object.freeze({
       quote: 'Quote: Cited source, HTML allowed',
     },
   },
-  quote: {
+  {
+    name: 'quote',
     kinds: ['quote'],
     type: 'text',
     default({ parent }) {
@@ -99,45 +107,49 @@ const fields = Object.freeze({
     },
     description: 'The full text of the quote, HTML entities must be escaped',
   },
-  title: {
+  {
+    name: 'title',
     kinds: ['link', 'text'],
     type: 'text',
     default({ parent }) {
-      return get(parent, 'data.title') || get(parent, 'data.link_title');
+      return get(parent, 'title') || get(parent, 'link_title') || '';
     },
     description: {
       link:
         'The title of the page the link points to, HTML entities should be escaped',
     },
   },
-  body: {
+  {
+    name: 'body',
     kinds: ['text'],
     type: 'textarea',
     default({ parent }) {
-      if (get(parent, 'data.body_html')) {
-        return get(parent, 'data.body_html');
+      if (get(parent, 'body_html')) {
+        return get(parent, 'body_html') || '';
       }
-      if (get(parent, 'data.selftext_html')) {
-        return get(parent, 'data.selftext_html');
+      if (get(parent, 'selftext_html')) {
+        return get(parent, 'selftext_html') || '';
       }
-      return get(parent, 'data.title') || get(parent, 'data.link_title');
+      return get(parent, 'title') || get(parent, 'link_title') || '';
     },
     description:
       'The title of the page the link points to, HTML entities should be escaped',
   },
-  url: {
+  {
+    name: 'url',
     kinds: ['link'],
     type: 'text',
     default({ parent }) {
       return (
-        get(parent, 'data.url') ||
-        get(parent, 'data.permalink') ||
-        get(parent, 'data.link_url')
+        get(parent, 'url') ||
+        get(parent, 'permalink') ||
+        get(parent, 'link_url') || ''
       );
     },
     description: 'The link',
   },
-  thumbnail: {
+  {
+    name: 'thumbnail',
     kinds: ['link'],
     type: 'text',
     default({ parent }) {
@@ -145,7 +157,8 @@ const fields = Object.freeze({
     },
     description: 'The url of an image to use as a thumbnail for the post',
   },
-  description: {
+  {
+    name: 'description',
     kinds: ['link'],
     type: 'text',
     default({ parent }) {
@@ -153,7 +166,8 @@ const fields = Object.freeze({
     },
     description: 'A user-supplied description, HTML allowed',
   },
-  excerpt: {
+  {
+    name: 'excerpt',
     kinds: ['link'],
     type: 'text',
     default({ parent }) {
@@ -162,7 +176,8 @@ const fields = Object.freeze({
     description:
       'An excerpt from the page the link points to, HTML entities should be escaped',
   },
-  author: {
+  {
+    name: 'author',
     kinds: ['link'],
     type: 'text',
     default({ parent }) {
@@ -171,14 +186,15 @@ const fields = Object.freeze({
     description:
       'The name of the author from the page the link points to, HTML entities should be escaped',
   },
-  embed: {
+  {
+    name: 'embed',
     kinds: ['video'],
     type: 'text',
     default({ parent }) {
       return (
-        get(parent, 'data.url') ||
-        // get(parent, 'data.permalink') ||
-        get(parent, 'data.link_url')
+        get(parent, 'url') ||
+        // get(parent, 'permalink') ||
+        get(parent, 'link_url') || ''
       );
     },
     description:
@@ -190,6 +206,6 @@ const fields = Object.freeze({
   //   default({ parent }) { return null; },
   //   description: 'A video file, limit 100MB',
   // },
-});
+]);
 
 export default fields
