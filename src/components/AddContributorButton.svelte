@@ -98,7 +98,7 @@ let existingContributor = null;
 let add_username = null;
 let duration = null;
 
-$: console.log(item);
+// $: console.log(item);
 $: validatePropItem(item);
 $: validatePropBoolean(busy);
 $: validatePropBoolean(showingContributorModal);

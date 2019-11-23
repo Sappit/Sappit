@@ -42,7 +42,7 @@ async function save($event) {
   try {
     busy = true;
     const response = await reddit.post(
-      `/api/${saved ? 'save' : 'unsave'}`,
+      `/api/${saved ? 'unsave' : 'save'}`,
       {
         // category: '???',
         id: name, // fullname
