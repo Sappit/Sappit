@@ -17,15 +17,15 @@ export function add (input) {
   list.update(listValue => {
     listValue = listValue || [];
 
-    const response = input.response || input;
+    const response = get(input, 'response') || input;
     // console.log('apiLog.actions.add().input', input);
     // console.log('apiLog.actions.add().response', response);
     const config = get(response, 'config') || { noConfig: true };
     const entry = get(config, 'apiLog') || { noApiLog: true };
-    console.log('entry', entry)
-    console.log('config', config)
-    console.log('response', response)
-    console.log('input', input)
+    // console.log('entry', entry)
+    // console.log('config', config)
+    // console.log('response', response)
+    // console.log('input', input)
     const baseURL = get(response, 'config.baseURL') || null;
     entry.end = now();
     entry.ms = (entry.end - entry.start) * 1000;
