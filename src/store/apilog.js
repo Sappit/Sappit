@@ -7,7 +7,7 @@ export const list = lsWritable('Apilog', []);
 
 export const apilogCount = derived(list, newListValue => newListValue.length);
 export const apilogErrorCount = derived(list, newListValue => newListValue
-    .filter(entry => entry.status >= 300).length);
+    .filter(entry => entry && entry.status >= 300).length);
 
 export function flush () {
   list.set([])
@@ -29,7 +29,7 @@ export function add (input) {
     const baseURL = get(response, 'config.baseURL') || null;
     entry.end = now();
     entry.ms = (entry.end - entry.start) * 1000;
-    entry.status = response.status;
+    entry.status = get(response, 'status');
     entry.path = config.url ? config.url.replace(baseURL, '/') : null;
     entry.fullPath = (get(response, 'request.responseURL') || '').replace(baseURL, '/');
     entry.data = config.data;

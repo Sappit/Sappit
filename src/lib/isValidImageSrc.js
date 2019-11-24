@@ -8,6 +8,9 @@ export default function isValidImageSrc (src) {
   if (src.startsWith('https://v.redd.it/')) {
     return false;
   }
+  if (src.includes('imgur.com/a/') || src.includes('imgur.com/gallery/')) {
+    return false;
+  }
   // @todo more logic
   return true;
 }

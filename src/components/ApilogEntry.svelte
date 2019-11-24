@@ -64,14 +64,15 @@ let show = oneOpen();
 
 // $: validatePropItem(item);
 
+$: status = item ? item.status : null;
 $: statusCssClass = (
-  item.status >= 400
+  status >= 400
     ? 'text-danger'
-    : (item.status >= 300 ? 'text-warning' : 'text-success')
+    : (status >= 300 ? 'text-warning' : 'text-success')
 )
 $: statusBgCssClass = (
-  item.status >= 400
+  status >= 400
     ? 'bg-danger'
-    : (item.status >= 300 ? 'bg-warning' : 'bg-success')
+    : (status >= 300 ? 'bg-warning' : 'bg-success')
 )
 </script>

@@ -48,12 +48,12 @@ module.exports = {
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),
       }),
-      new SentryWebpackPlugin({
+      dev ? null : new SentryWebpackPlugin({
         include: '.',
         ignoreFile: '.sentrycliignore',
         ignore: ['node_modules', 'webpack.config.js'],
         configFile: 'sentry.properties'
-      })
+      }),
     ].filter(Boolean),
     devtool: dev && 'inline-source-map'
   },

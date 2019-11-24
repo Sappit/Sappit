@@ -6,9 +6,10 @@ export default function getImgurAlbumId (input) {
     return getImgurAlbumId(input.url);
   }
   if (input && input.includes && (input.includes('imgur.com/a/') || input.includes('imgur.com/gallery/'))) {
-    return get(imgurAlbumIdRegEx.exec(input), 'groups.albumid') || null;
+    const result = imgurAlbumIdRegEx.exec(input);
+    return (result && result[2]) || null;
   }
   return null;
 }
 
-const imgurAlbumIdRegEx = /https:.*imgur\.com\/(a|gallery)\/(?<albumid>[a-zA-Z0-9]{4,12})\/{0,1}/ig
+const imgurAlbumIdRegEx = /https:.*imgur\.com\/(a|gallery)\/([a-zA-Z0-9]{4,12})\/{0,1}/ig

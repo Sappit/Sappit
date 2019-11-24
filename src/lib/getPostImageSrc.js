@@ -56,5 +56,5 @@ export default function getPostImageSrc (post) {
 }
 
 function firstValidImage (entry) {
-  return entry.status === 'valid' && entry.e === 'Image';
+  return entry && entry.status === 'valid' && entry.e === 'Image';
 }

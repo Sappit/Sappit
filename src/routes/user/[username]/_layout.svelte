@@ -15,7 +15,7 @@
     <br>
   </div>
   <h2>
-    /u/{user.name}
+    /u/<span on:click|preventDefault|capture={clipboard}>{user.name}</span>
     <div class="pull-right"></div>
   </h2>
   <p>
@@ -157,4 +157,8 @@ $: promise && promise.then(newUserValue => {
   })
 
 middlewareAuth()
+
+function clipboard (event) {
+  navigator.clipboard.writeText($user.name)
+}
 </script>
