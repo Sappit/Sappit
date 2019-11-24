@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Cache-Control" content="no-store" />
+<script>
+'use strict';
+// https://stackoverflow.com/questions/41636754/how-to-clear-a-service-worker-cache-in-firefox
+  navigator.serviceWorker.getRegistrations().then(function(registrations) {
+   for(let registration of registrations) {
+    registration.unregister()
+  }
+})
+</script>
+</head>
+<body>
+</body>
