@@ -20,19 +20,23 @@ export function add (input) {
     const response = input.response || input;
     // console.log('apiLog.actions.add().input', input);
     // console.log('apiLog.actions.add().response', response);
-    const entry = get(response, 'config.apiLog') || { noApiLog: true };
-    // console.log('entry', entry)
-    const { baseURL } = response.config;
+    const config = get(response, 'config') || { noConfig: true };
+    const entry = get(config, 'apiLog') || { noApiLog: true };
+    console.log('entry', entry)
+    console.log('config', config)
+    console.log('response', response)
+    console.log('input', input)
+    const baseURL = get(response, 'config.baseURL') || null;
     entry.end = now();
     entry.ms = (entry.end - entry.start) * 1000;
     entry.status = response.status;
-    entry.path = response.config.url.replace(baseURL, '/');
-    entry.fullPath = response.request.responseURL.replace(baseURL, '/');
-    entry.data = response.config.data;
-    entry.params = response.config.params;
-    entry.method = response.config.method;
+    entry.path = config.url ? config.url.replace(baseURL, '/') : null;
+    entry.fullPath = (get(response, 'request.responseURL') || '').replace(baseURL, '/');
+    entry.data = config.data;
+    entry.params = config.params;
+    entry.method = config.method;
     if (entry.status !== 200) {
-      entry.result = response.data;
+      entry.result = get(response, 'data');
     }
 
     // console.log('listValue', listValue)

@@ -13,7 +13,7 @@
       approving
     {/if}
   {:else}
-    <i class="fa fa-fw fa-btn fa-floppy"/>
+    <i class="fa fa-fw fa-btn fa-plus"/>
     {#if item.approved}
       approved
     {:else}

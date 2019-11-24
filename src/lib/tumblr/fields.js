@@ -52,6 +52,9 @@ const fields = Object.freeze([
       }
       return '';
     },
+    clearButton: {
+      newValue: '',
+    },
   },
   // publish_on: { // ISO 8601 format
   //   type: 'text',
@@ -69,6 +72,9 @@ const fields = Object.freeze([
       return get(parent, 'title') || get(parent, 'link_title') || '';
     },
     description: 'The user-supplied caption',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'link',
@@ -80,6 +86,9 @@ const fields = Object.freeze([
       //   || get(parent, 'link_url');
     },
     description: 'The "click-through URL" for the photo',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'source',
@@ -97,6 +106,9 @@ const fields = Object.freeze([
       photo: 'The photo source URL',
       quote: 'Quote: Cited source, HTML allowed',
     },
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'quote',
@@ -106,6 +118,9 @@ const fields = Object.freeze([
       return '';
     },
     description: 'The full text of the quote, HTML entities must be escaped',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'title',
@@ -117,6 +132,9 @@ const fields = Object.freeze([
     description: {
       link:
         'The title of the page the link points to, HTML entities should be escaped',
+    },
+    clearButton: {
+      newValue: '',
     },
   },
   {
@@ -134,6 +152,9 @@ const fields = Object.freeze([
     },
     description:
       'The title of the page the link points to, HTML entities should be escaped',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'url',
@@ -147,6 +168,9 @@ const fields = Object.freeze([
       );
     },
     description: 'The link',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'thumbnail',
@@ -156,6 +180,9 @@ const fields = Object.freeze([
       return '';
     },
     description: 'The url of an image to use as a thumbnail for the post',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'description',
@@ -165,6 +192,9 @@ const fields = Object.freeze([
       return '';
     },
     description: 'A user-supplied description, HTML allowed',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'excerpt',
@@ -175,6 +205,9 @@ const fields = Object.freeze([
     },
     description:
       'An excerpt from the page the link points to, HTML entities should be escaped',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'author',
@@ -185,6 +218,9 @@ const fields = Object.freeze([
     },
     description:
       'The name of the author from the page the link points to, HTML entities should be escaped',
+    clearButton: {
+      newValue: '',
+    },
   },
   {
     name: 'embed',
@@ -199,6 +235,9 @@ const fields = Object.freeze([
     },
     description:
       "HTML embed code for the video or a URI to the video. If you provide an unsupported service's URI you may receive a 400 response.",
+    clearButton: {
+      newValue: '',
+    },
   },
   // data: {
   //   kinds: ['video'],

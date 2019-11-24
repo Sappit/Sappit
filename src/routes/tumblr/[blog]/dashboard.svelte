@@ -5,7 +5,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <ShowSource value={blog}/>
+      <ShowSource value={data}/>
     </div>
   </div>
 </div>
@@ -28,4 +28,10 @@ let data = null;
 
 $: blog = $page.params.blog ? find($blogs, blog => blog.name === $page.params.blog) : null
 $: blog===null || validatePropTumblrblog(blog);
+
+onMount(() => {
+  fetchUserDashboard({
+    options: {},
+  }).then(response => data = response.data);
+})
 </script>

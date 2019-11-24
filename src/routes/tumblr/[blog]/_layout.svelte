@@ -8,7 +8,15 @@
     {#if blog}
       <li class="nav-item">
         <a href="/tumblr/{blog.name}" class="nav-link" class:active={$page.path}>
-          Dashboard ({ blog.name })
+          Profile ({ blog.name })
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/tumblr/{blog.name}/dashboard"
+          class="nav-link"
+          class:active={$page.path.includes(`/tumblr/${blog.name}/dashboard`)}
+        >
+          Dashboard
         </a>
       </li>
       <li class="nav-item">
@@ -29,12 +37,12 @@
           Drafts ({ blog.drafts })
         </a>
       </li>
-      <li class="nav-item">
+<!--       <li class="nav-item">
         <a href="/tumblr/{blog.name}/submissions" class="nav-link"
           class:active={$page.path.includes(`/tumblr/${blog.name}/submissions`)}>
-          Submissions ({ blog.drafts })
+          Submissions ({ blog.submissions })
         </a>
-      </li>
+      </li> -->
     {/if}
   </ul>
   {#if blog}

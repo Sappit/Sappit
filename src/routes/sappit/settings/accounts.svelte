@@ -1,8 +1,21 @@
 <div class="container">
-  <div class="pull-right">
-    <button class="btn btn-success" on:click|preventDefault|stopPropagation={addNewAccount}>
+  <div class="pull-right btn-group">
+    <a
+      href={getOAuthLoginHref()}
+      class="btn btn-success"
+      rel="nofollow"
+      on:click|preventDefault|stopPropagation={addNewAccount}
+    >
       <i class="fa fa-fw fa-plus"/>
       Add
+    </a>
+    <button
+      class="btn btn-primary"
+      rel="nofollow"
+      on:click|preventDefault|stopPropagation={refetchAll}
+    >
+      <i class="fa fa-fw fa-arrows-cw"/>
+      All
     </button>
   </div>
   <br>
@@ -67,9 +80,6 @@
           </td>
           <td>
             <small>fetchedAt: </small>
-            {md.fetchedAt}
-            <br>
-            <small>fetchedAt: </small>
             <TimeAgo value={md.fetchedAt} />
             <br>
             <small>createdAt: </small>
@@ -77,7 +87,7 @@
           </td>
           <td>
             <button
-              class="btn primary btn-sm"
+              class="btn btn-primary btn-sm"
               class:disabled={(fetching[username])}
               disabled={(fetching[username])}
               on:click|preventDefault|stopPropagation={() => refetchMe(username)}
@@ -105,7 +115,7 @@ $: validatePropObject(fetching);
 
 middlewareAuth()
 
-$: console.log($accounts);
+// $: console.log($accounts);
 $: accountsList = $accounts
   ? Object.keys($accounts).map(username => ({
       isCurrent: $username === username,
@@ -113,6 +123,13 @@ $: accountsList = $accounts
       ...$accounts[username]
     }))
   : [];
+
+async function refetchAll() {
+  for (let username in $accounts) {
+    await refetchMe(username);
+    await new Promise(resolve => setTimeout(resolve, 100))
+  }
+}
 
 async function refetchMe(username) {
   try {

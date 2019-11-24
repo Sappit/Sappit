@@ -183,7 +183,6 @@ import PushshiftList from '~/components/PushshiftList';
 import CommentsGroupedByLinks from '~/components/CommentsGroupedByLinks';
 import Loading from '~/components/Loading';
 import PostsGroupedByLinks from '~/components/PostsGroupedByLinks';
-import SearchInput from '~/components/SearchInput';
 import SelectQueryCommentGroupBy from '~/components/SelectQueryCommentGroupBy';
 import SelectQueryDomainCsv from '~/components/SelectQueryDomainCsv';
 import SelectQueryPostGroupBy from '~/components/SelectQueryPostGroupBy';

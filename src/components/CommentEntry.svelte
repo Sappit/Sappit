@@ -245,7 +245,6 @@ $: parentTo = getCommentParentToUrl(comment)
 $: linkToFullComments = getCommentLinkToFullComments(comment, $page)
 $: isAuthor = $usernames.includes(comment.author)
 $: showSubreddit = checkIfShouldShowSubreddit(comment, $page);
-$: console.log('replies', comment.replies);
 
 function checkIfShouldShowSubreddit(comment, $page) {
   if (!comment.subreddit) return false;

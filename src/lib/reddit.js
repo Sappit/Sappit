@@ -145,11 +145,12 @@ export async function fetchAccessToken({ state, code, error }) {
 }
 
 export async function fetchRefreshedAccessToken(params) {
-  if (params.error) {
+  // console.log('fetchRefreshedAccessToken', params);
+  if (params && params.error) {
     console.error('fetchRefreshedAccessToken', params)
     throw new Error(params.error);
   }
-  if (!params.refresh_token) {
+  if (!(params && params.refresh_token)) {
     console.error('fetchRefreshedAccessToken', params)
     throw new Error('missing refresh_token');
   }

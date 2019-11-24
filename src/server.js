@@ -21,6 +21,12 @@ polka() // You can also use Express
       ws: false,
       changeOrigin: true,
     }),
+    proxy('/api-imgur', {
+      pathRewrite: { '^/api-imgur' : '' },
+      target: 'https://api.imgur.com/',
+      ws: false,
+      changeOrigin: true,
+    }),
     // we'll just use the on-production one since the
     // netlify local test server doesnt work
     // and its basically just a proxy

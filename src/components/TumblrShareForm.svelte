@@ -16,7 +16,17 @@
     {#each fields as field, index (field.name)}
       <div class="form-group row">
         {#if !field.kinds || field.kinds.includes(dirty.kind)}
-          <label class="col-6">{field.name}</label>
+          <label class="col-6">
+            {field.name}
+            {#if field.clearButton}
+              <button
+                class="btn btn-danger btn-xs pull-right small"
+                on:click={() => dirty[field.name] = field.clearButton.newValue}
+              >
+                <i class="fa fa-fw fa-cancel"/> clear
+              </button>
+            {/if}
+          </label>
           {#if field.type === 'select'}
             <select
               class="form-control col-6 r-select"

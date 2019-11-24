@@ -51,14 +51,15 @@ async function submit(event) {
     // console.log('updating search');
     // queryStore.q.set(q || null);
   } else {
+    dispatch('update-search')
     // console.log('lets goto search page');
-    await goto(href({
-      path: '/search',
-      query: {
-        q: $page.query.q,
-        subreddit: $page.params.subreddit,
-      },
-    }));
+    // await goto(href({
+    //   path: '/search',
+    //   query: {
+    //     q: $page.query.q,
+    //     subreddit: $page.params.subreddit,
+    //   },
+    // }));
   }
 }
 </script>

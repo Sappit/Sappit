@@ -6,6 +6,7 @@
       </th>
       <th>Blog</th>
       <th><small>messages</small></th>
+      <!-- <th><small>submissions</small></th> -->
       <th><small>Followers</small></th>
       <th><small>Drafts</small></th>
       <th><small>Queue</small></th>
@@ -29,6 +30,7 @@
           </small>
         </td>
         <td>{ blog.messages }</td>
+        <!-- <td>{ blog.submissions }</td> -->
         <td>{ blog.followers }</td>
         <td>{ blog.drafts }</td>
         <td>{ blog.queue }</td>

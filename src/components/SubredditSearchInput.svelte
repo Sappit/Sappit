@@ -3,7 +3,7 @@
       class="form-control form-control-sm mr-sm-2"
       type="text"
       placeholder="Search"
-      bind:value={$q}
+      value={$q || ''}
       on:change|preventDefault|stopPropagation={event => $q = event.target.value || ''}
     />
     <button

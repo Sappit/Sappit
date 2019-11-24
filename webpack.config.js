@@ -41,6 +41,7 @@ module.exports = {
       new webpack.DefinePlugin({
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
+        'process.env.imgurClientId': JSON.stringify(process.env.IMGUR_CLIENT_ID),
         'process.env.redditClientId': JSON.stringify(process.env.REDDIT_CLIENT_ID),
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),

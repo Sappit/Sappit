@@ -143,7 +143,6 @@
 
 <script>
 import get from 'lodash/get';
-import SearchInput from '~/components/SearchInput';
 import { MeData } from '~/store/auth';
 import { censorUsernames } from '~/store/settings';
 import { historyCount } from '~/store/history';

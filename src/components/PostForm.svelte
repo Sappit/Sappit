@@ -7,7 +7,7 @@
       {/each}
     </select>
   </div>
-  {#if dirty.kind !== "self"}
+  {#if dirty.kind === "link"}
     <div class="form-group post-url">
       <label>URL</label>
       <input
@@ -17,6 +17,18 @@
         bind:value={dirty.url}
       />
     </div>
+  {/if}
+  {#if dirty.kind === "image" && !isEditing}
+      Not Supported
+<!--     <div class="form-group post-choose-image">
+      <label>Upload</label>
+      <input
+        type="file"
+        class="form-control"
+        multiple
+        bind:files={files}
+      />
+    </div> -->
   {/if}
   <div class="form-group post-url">
     <label>Title</label>
@@ -234,6 +246,7 @@ let selected_username = null;
 let errors = null;
 let saving = false;
 let editingPost = null;
+// let files;
 
 $: parent===null || validatePropPost(parent);
 $: post===null || validatePropPost(post);
@@ -241,6 +254,7 @@ $: isSaveDisabled = saving || !dirty.title || !(dirty.url || dirty.body);
 $: isEditing = !!editingPost;
 $: isCrossPosting = parent && !post;
 $: originalContentTagEnabled = null;
+// $: console.log('files', files);
 
 function freshDirty (post) {
   const dirty = {
@@ -275,7 +289,7 @@ function freshDirty (post) {
     dirty.kind = 'self';
   }
   if (!dirty.kind) {
-    dirty.kind = 'link';
+    dirty.kind = $page.query.kind || 'link';
   }
   return dirty;
 }
