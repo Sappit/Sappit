@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 const config = require('sapper/config/webpack.js');
 const pkg = require('./package.json');
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -42,10 +43,17 @@ module.exports = {
         'process.browser': true,
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.imgurClientId': JSON.stringify(process.env.IMGUR_CLIENT_ID),
+        'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
         'process.env.redditClientId': JSON.stringify(process.env.REDDIT_CLIENT_ID),
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),
       }),
+      new SentryWebpackPlugin({
+        include: '.',
+        ignoreFile: '.sentrycliignore',
+        ignore: ['node_modules', 'webpack.config.js'],
+        configFile: 'sentry.properties'
+      })
     ].filter(Boolean),
     devtool: dev && 'inline-source-map'
   },
@@ -79,6 +87,8 @@ module.exports = {
       new webpack.DefinePlugin({
         'process.browser': false,
         'process.env.NODE_ENV': JSON.stringify(mode),
+        'process.env.imgurClientId': JSON.stringify(process.env.IMGUR_CLIENT_ID),
+        'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
         'process.env.redditClientId': JSON.stringify(process.env.REDDIT_CLIENT_ID),
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),
