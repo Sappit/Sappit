@@ -13,14 +13,14 @@
   {/if}
   <p>
     {#if hasComments}
-      <div class="btn btn-secondary" on:click|preventDefault|stopPropagation={() => collapseAll(false)}>
+      <button class="btn btn-secondary" on:click|preventDefault|stopPropagation={() => collapseAll(false)}>
         <i class="fa fa-fw fa-btn btn-collapse fa-plus"/>
         uncollapse all
-      </div>
-      <div class="btn btn-secondary" on:click|preventDefault|stopPropagation={() => collapseAll(true)}>
+      </button>
+      <button class="btn btn-secondary" on:click|preventDefault|stopPropagation={() => collapseAll(true)}>
         <i class="fa fa-fw fa-btn btn-collapse fa-minus"/>
         collapse all
-      </div>
+      </button>
     {/if}
     <a
       class="btn btn-primary pull-right"
@@ -59,6 +59,14 @@ $: hasComments = commentsCount > 0;
 
 function collapseAll (newCollapsedValue) {
   // $refs.comments.collapseAll(newCollapsedValue)
+  function setCollapsedRecursive(comment) {
+    comment.collapsed = newCollapsedValue
+    if (comment.replies && comment.replies.forEach) {
+      comment.replies.forEach(setCollapsedRecursive);
+    }
+  }
+  comments.forEach(setCollapsedRecursive)
+  comments = comments;
 }
 
 function onCommentCreated (event) {
