@@ -53,7 +53,7 @@ $: validatePropPost(post);
 $: validatePropSubreddit(subreddit);
 $: validatePropComments(comments);
 
-$: commentsCount = get(comments, 'data.children.length', 0);
+$: commentsCount = get(comments, 'length', 0);
 $: zeroComments = !(commentsCount > 0);
 $: hasComments = commentsCount > 0;
 
