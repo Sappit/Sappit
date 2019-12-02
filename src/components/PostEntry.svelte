@@ -301,6 +301,7 @@ $: validatePropPost(post);
 $: validatePropBoolean(showThumbnail);
 $: isAuthor = $usernames.includes(post.author)
 $: postUrl = (post.url || '').replace(linkRegEx, newLink)
+$: console.log('showCrosspost', showCrosspost);
 
 function onPostUpdated(updatedPost) {
   // @todo
