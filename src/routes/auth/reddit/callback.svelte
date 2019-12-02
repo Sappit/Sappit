@@ -16,6 +16,7 @@
 </section>
 
 <script>
+import sleep from '~/lib/sleep';
 import { current, fetchAccessToken, fetchMe, moveTmpOAuthData } from '~/store/auth';
 import { stores, goto } from '@sapper/app';
 const { page } = stores();
@@ -29,6 +30,9 @@ async function addTokens () {
     const { state, code, error } = $page.query;
 
     await current.set(null);
+    await sleep(33);
+    await current.set(null);
+    await sleep(33);
     await fetchAccessToken({ state, code, error });
     const MeData = await fetchMe();
     await moveTmpOAuthData(MeData.name);
