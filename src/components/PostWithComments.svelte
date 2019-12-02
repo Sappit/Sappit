@@ -1,10 +1,12 @@
 <div class="post-comments-page">
   <PostEntry {post} on:created-comment={onCommentCreated}/>
-  <div class="post-body container">
-    <div class="card card-block bg-faded">
-      <ItemHtml item={post}/>
+  {#if post.is_self}
+    <div class="post-body container">
+      <div class="card card-block bg-faded">
+        <ItemHtml item={post}/>
+      </div>
     </div>
-  </div>
+  {/if}
   {#if subreddit.user_is_banned}
     <p class="alert alert-danger">You are banned from this subreddit.</p>
   {/if}
