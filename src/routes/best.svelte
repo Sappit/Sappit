@@ -17,6 +17,7 @@ import Loading from '~/components/Loading';
 import RedditPagination from '~/components/RedditPagination';
 import PostList from '~/components/PostList';
 import middlewareAuth from '~/lib/middleware/auth';
+import { stores } from '@sapper/app';
 const { page } = stores();
 
 middlewareAuth()
