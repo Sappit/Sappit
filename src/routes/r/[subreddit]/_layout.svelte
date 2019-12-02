@@ -137,6 +137,15 @@
           Mod Log
         </a>
       </li>
+      <li class="nav-item">
+        <a rel="nofollow" target="_blank"
+          href="https://old.reddit.com/r/{$page.params.subreddit}/wiki/config/automoderator"
+          class="nav-link" class:active={$page.path.includes('/about/log')}
+        >
+          <i class="fa fa-fw fa-btn fa-external-link"/>
+          Automod Config
+        </a>
+      </li>
     {/if}
   </ul>
   <div class="row clearfix">
