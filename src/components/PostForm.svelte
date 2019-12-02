@@ -1,3 +1,4 @@
+TEST
 <div class="post-form container">
   <div class="form-group post-kind row">
     <label class="col-6">Kind</label>
