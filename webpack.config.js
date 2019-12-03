@@ -55,6 +55,7 @@ module.exports = {
           'http://localhost:10080/auth/reddit/callback'),
       }),
       dev ? null : new SentryWebpackPlugin({
+        release: process.env.SENTRY_RELEASE,
         include: '.',
         ignoreFile: '.sentrycliignore',
         ignore: ['node_modules', 'webpack.config.js'],
