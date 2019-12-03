@@ -49,7 +49,7 @@ module.exports = {
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.imgurClientId': JSON.stringify(process.env.IMGUR_CLIENT_ID),
         'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
-        'process.env.SENTRY_RELEASE': JSON.stringy(process.env.SENTRY_RELEASE),
+        'process.env.SENTRY_RELEASE': JSON.stringify(process.env.SENTRY_RELEASE),
         'process.env.redditClientId': JSON.stringify(process.env.REDDIT_CLIENT_ID),
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),
@@ -96,7 +96,7 @@ module.exports = {
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.imgurClientId': JSON.stringify(process.env.IMGUR_CLIENT_ID),
         'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
-        'process.env.SENTRY_RELEASE': JSON.stringy(process.env.SENTRY_RELEASE),
+        'process.env.SENTRY_RELEASE': JSON.stringify(process.env.SENTRY_RELEASE),
         'process.env.redditClientId': JSON.stringify(process.env.REDDIT_CLIENT_ID),
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),
