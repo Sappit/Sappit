@@ -14,6 +14,11 @@ const mainFields = ['svelte', 'module', 'browser', 'main'];
 
 const preprocess = require('svelte-preprocess')({ /* options */ });
 
+process.env.SENTRY_RELEASE = process.env.SENTRY_RELEASE ||
+  `${(process.env.BRANCH || 'NULL_BRANCH')}-${(process.env.COMMIT_REF || 'NULL_COMMIT_REF')}`
+    .replace(/[^a-z0-9]/gi, '-')
+    .replace(/^-|-$/g,'')
+
 module.exports = {
   client: {
     entry: config.client.entry(),
@@ -44,6 +49,7 @@ module.exports = {
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.imgurClientId': JSON.stringify(process.env.IMGUR_CLIENT_ID),
         'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
+        'process.env.SENTRY_RELEASE': JSON.stringy(process.env.SENTRY_RELEASE),
         'process.env.redditClientId': JSON.stringify(process.env.REDDIT_CLIENT_ID),
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),
@@ -89,6 +95,7 @@ module.exports = {
         'process.env.NODE_ENV': JSON.stringify(mode),
         'process.env.imgurClientId': JSON.stringify(process.env.IMGUR_CLIENT_ID),
         'process.env.SENTRY_DSN': JSON.stringify(process.env.SENTRY_DSN),
+        'process.env.SENTRY_RELEASE': JSON.stringy(process.env.SENTRY_RELEASE),
         'process.env.redditClientId': JSON.stringify(process.env.REDDIT_CLIENT_ID),
         'process.env.redditRedirectUri': JSON.stringify(process.env.REDDIT_REDIRECT_URI ||
           'http://localhost:10080/auth/reddit/callback'),
