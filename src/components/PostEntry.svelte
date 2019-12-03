@@ -157,7 +157,7 @@
       </div>
     </div>
   </div>
-  {#if showReply || $show.any}
+  {#if showReply || showCrosspost || $show.any}
     <div class="row">
       <div class="col">
         {#if $show.image || $show.tumblrshare}
