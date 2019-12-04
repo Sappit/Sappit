@@ -1,6 +1,8 @@
 import * as sapper from '@sapper/app';
 import * as Sentry from '@sentry/browser';
+// some imports to reduce duplication of large dependency trees
 import PostEntry from '~/components/PostEntry';
+import RedditPagination from '~/components/RedditPagination';
 
 sapper.start({
   target: document.querySelector('#sapper')
