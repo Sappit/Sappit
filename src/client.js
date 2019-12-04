@@ -1,5 +1,6 @@
 import * as sapper from '@sapper/app';
 import * as Sentry from '@sentry/browser';
+import PostEntry from '~/components/PostEntry';
 
 sapper.start({
   target: document.querySelector('#sapper')
