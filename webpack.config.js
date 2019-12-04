@@ -65,7 +65,8 @@ module.exports = {
       dev ? null : new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         openAnalyzer: false,
-        reportFilename: 'webpack_bundle_analyzer.html',
+        // reportFilename: 'webpack_bundle_analyzer.html',
+        reportFilename: '../../export/webpack_bundle_analyzer.html',
       }),
     ].filter(Boolean),
     devtool: dev && 'inline-source-map'
