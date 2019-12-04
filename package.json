@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "PORT=10080 sapper dev",
     "build": "sapper build",
-    "export": "sapper export && netlify-lambda build ./functions/",
+    "export": "sapper export",
+    "netlify:build": "sapper export && netlify-lambda build ./functions/ && mv __sapper__/webpack_bundle_analyzer.html __sapper__/export/webpack_bundle_analyzer.html",
     "lambda": "netlify-lambda serve .",
     "lint": "eslint src/ --ext svelte",
     "sass": "node-sass --output-style=compressed --source-map=true src/sass/unorganized.sass static/css/unorganized.css",
