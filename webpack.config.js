@@ -4,6 +4,7 @@ const path = require('path');
 const config = require('sapper/config/webpack.js');
 const pkg = require('./package.json');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -60,6 +61,11 @@ module.exports = {
         ignoreFile: '.sentrycliignore',
         ignore: ['node_modules', 'webpack.config.js'],
         configFile: 'sentry.properties'
+      }),
+      dev ? null : new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: false,
+        reportFilename: 'webpack_bundle_analyzer.html',
       }),
     ].filter(Boolean),
     devtool: dev && 'inline-source-map'

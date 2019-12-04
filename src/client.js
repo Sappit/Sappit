@@ -10,6 +10,18 @@ if (process.env.SENTRY_DSN) {
     dsn: process.env.SENTRY_DSN,
     release: process.env.SENTRY_RELEASE || void 0,
   });
+
+  window.onunhandledrejection = (event) => {
+    console.log('[unhandledrejection]', { event });
+    event.preventDefault();
+    Sentry.captureException(event.reason || event);
+  };
+  window.onerror = (message, source, lineno, colno, error) => {
+    console.log('[window.onerror]', { message, source, lineno, colno, error });
+    Sentry.captureException(error || message);
+    // prevent firing of default handler
+    return true;
+  };
 }
 
 // Sentry.captureException(new Error("Something broke"));
