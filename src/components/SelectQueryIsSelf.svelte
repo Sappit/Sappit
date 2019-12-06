@@ -2,7 +2,7 @@
   class="form-control r-select"
   name="is_self"
   {value}
-  on:change={(event) => $post_group_by = event.target.value}
+  on:change={(event) => $is_self = event.target.value}
 >
   {#each selectOptions as {value, text} (value)}
     <option {value}>{text}</option>
