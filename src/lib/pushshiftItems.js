@@ -67,6 +67,8 @@ export default async function fetchItems({ path, query }) {
   if (query.domain && query.domainnegated) {
     query.domain = negateList(query.domain);
   }
+  // note: search link URLS by url=
+  // note: url= does not work for kind === Kind.comment
 
   // if (!isFunction(query)) {
   //   query = ({ route }) => {

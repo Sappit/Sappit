@@ -355,7 +355,6 @@ async function save($event) {
           resubmit: !!dirty.resubmit,
           spoiler: !!dirty.spoiler,
           sendreplies: !!dirty.sendreplies,
-          resubmit: !!dirty.resubmit,
         },
         {
           username: selected_username,

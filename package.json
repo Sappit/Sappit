@@ -29,6 +29,7 @@
     "compression": "^1.7.1",
     "date-fns": "1",
     "dotenv": "^8.2.0",
+    "get-youtube-id": "^1.0.1",
     "http-proxy-middleware": "^0.20.0",
     "idb-keyval": "^3.2.0",
     "lodash": "^4.17.15",

@@ -4,6 +4,13 @@
     <a
       class="btn btn-primary pull-right"
       href="/r/{$page.params.subreddit}/comments/{$page.params.post_id}/{$page.params.post_title}">comments</a>
+
+    {#if youtubeId}
+      <a class="btn btn-primary" href="/pushshift?kind=t3&url={youtubeId}">
+        <i class="fa fa-search fa-fw"/>
+        Pushshift: threads by youtubeId
+      </a>
+    {/if}
   </p>
   <div class="post-duplicates">
     <h2>Duplicate Links:</h2>
@@ -14,6 +21,7 @@
 </div>
 
 <script>
+import getYoutubeId from 'get-youtube-id';
 import get from 'lodash/get';
 import ItemHtml from '~/components/ItemHtml';
 import PostEntry from '~/components/PostEntry';
@@ -32,4 +40,5 @@ export let duplicates;
 $: validatePropSubreddit(subreddit);
 $: validatePropPost(post);
 $: validatePropPosts(duplicates);
+$: youtubeId = (post && post.url && getYoutubeId(post.url)) || null;
 </script>

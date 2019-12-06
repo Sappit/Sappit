@@ -7,12 +7,12 @@
       <div class="col">
         <SelectQuerySize max={500}/>
       </div>
-      {#if $page.query.kind === 'post'}
+      {#if $page.query.kind === Kind.Post}
         <div class="col">
           <SelectQueryPostGroupBy/>
         </div>
       {/if}
-      {#if $page.query.kind !== 'post'}
+      {#if $page.query.kind !== Kind.Post}
         <div class="col">
           <SelectQueryCommentGroupBy/>
         </div>
@@ -28,10 +28,20 @@
         <SelectQueryAuthorCsv quickRemoves={pluckquickremoves('author')}/>
       </div>
     </div>
-    {#if $page.query.kind === 'post'}
+    {#if $page.query.kind === Kind.Post}
       <div class="row">
         <div class="col">
           <SelectQueryDomainCsv quickRemoves={pluckquickremoves('domain')}/>
+        </div>
+      </div>
+    {/if}
+    {#if $page.query.kind === Kind.Comment}
+      <div class="row">
+        <div class="col">
+          <SelectQueryText path="link_id" placeholder="link id"/>
+        </div>
+        <div class="col">
+          <SelectQueryText path="parent_id" placeholder="parent id"/>
         </div>
       </div>
     {/if}
@@ -48,6 +58,25 @@
         <SelectQueryText path="q" placeholder="query"/>
       </div>
     </div>
+    {#if $page.query.kind === Kind.Post || $page.query.url}
+      <div class="row">
+        <div class="col">
+          <SelectQueryText path="url" placeholder="link url"/>
+          {#if $page.query.kind !== Kind.Post && $page.query.url}
+            <div class="alert alert-danger">
+              <tt>url</tt> has no effect when searching for kinds other than post
+            </div>
+          {/if}
+        </div>
+      </div>
+    {/if}
+    {#if $page.query.kind === Kind.Post}
+      <div class="row">
+        <div class="col">
+          <SelectQueryIsSelf/>
+        </div>
+      </div>
+    {/if}
     <div class="row">
       <div class="col">
         <button
@@ -136,9 +165,9 @@
       {#await promise}
         <Loading/>
       {:then collection}
-        {#if $page.query.kind === 'post' && $page.query.post_group_by === 'link_url'}
+        {#if $page.query.kind === Kind.Post && $page.query.post_group_by === 'link_url'}
           <PostsGroupedByLinks items={collection.items}/>
-        {:else if $page.query.kind !== 'post' && $page.query.comment_group_by === 'link_id'}
+        {:else if $page.query.kind !== Kind.Post && $page.query.comment_group_by === 'link_id'}
           <CommentsGroupedByLinks items={collection.items}/>
         {:else}
           <MixedList items={collection.items}/>
@@ -185,6 +214,7 @@ import Loading from '~/components/Loading';
 import PostsGroupedByLinks from '~/components/PostsGroupedByLinks';
 import SelectQueryCommentGroupBy from '~/components/SelectQueryCommentGroupBy';
 import SelectQueryDomainCsv from '~/components/SelectQueryDomainCsv';
+import SelectQueryIsSelf from '~/components/SelectQueryIsSelf';
 import SelectQueryPostGroupBy from '~/components/SelectQueryPostGroupBy';
 import SelectQueryKind from '~/components/SelectQueryKind';
 import SelectQuerySize from '~/components/SelectQuerySize';
@@ -203,8 +233,9 @@ import queryStore from '~/store/query';
 import { list, remove, setSearch } from '~/store/searches';
 import pushshiftItems, { nextPage } from '~/lib/pushshiftItems';
 import validatePropBoolean from '~/lib/validateProp/boolean';
-const { page } = stores();
+import { Kind } from '~/lib/enum';
 
+const { page } = stores();
 const { name } = queryStore;
 
 // props
