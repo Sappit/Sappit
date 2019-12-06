@@ -21,6 +21,7 @@
       <a class="btn btn-outline-secondary" href="/r/mod/?sort=new">/r/mod</a>
       <a class="btn btn-outline-secondary" href="/random">/random</a>
       <a class="btn btn-outline-secondary" href="/subreddits">/subreddits</a>
+      <a class="btn btn-outline-secondary" href="/chat">/chat</a>
       {#if $username}
         <a class="btn btn-outline-success" href="/user/{$username}">/u/{ $username }</a>
         <a class="btn btn-outline-success" href="/user/{$username}/saved">Saved</a>
