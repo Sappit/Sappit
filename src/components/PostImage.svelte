@@ -53,7 +53,7 @@ $: imageSrc = getPostImageSrc(post)
 $: isImgurVideo = imageSrc.includes('//i.imgur.com/') && imageSrc.endsWith('.gifv')
 $: imgurMp4Src = isImgurVideo ? imageSrc.replace('.gifv', '.mp4') : null
 $: isPostHintVideo = includes(post.post_hint,  'video')
-$: console.log('[PostImage]', {imgurAlbumId, imageSrc});
+// $: console.log('[PostImage]', {imgurAlbumId, imageSrc});
 
 $: if (imgurAlbumId) {
   fetchImgurAlbum(imgurAlbumId).then(newAlbumData => albumData = newAlbumData, err => {

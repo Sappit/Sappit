@@ -49,7 +49,7 @@ $: validatePropItems(items);
 // $: links = getItemsLinksFiltered(items, c => c.hidden !== true && c.author !== '[deleted]')
 $: links = getItemsLinksFiltered(items)
 $: onLinksChange(links);
-$: console.log(items);
+// $: console.log(items);
 
 // immediate: true,
 function onLinksChange (newValue) {

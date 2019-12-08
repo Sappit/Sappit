@@ -12,6 +12,6 @@ import validatePropSubreddit from '~/lib/validateProp/subreddit';
 // props
 export let subreddit;
 
-$: console.log('subreddit', subreddit);
+// $: console.log('subreddit', subreddit);
 $: validatePropSubreddit(subreddit);
 </script>

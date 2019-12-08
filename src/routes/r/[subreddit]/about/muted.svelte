@@ -1,7 +1,5 @@
 <h2>Muted Users</h2>
 
-<MutedUserList/>
-
 {#await promise}
   <Loading/>
 {:then collection}
@@ -38,9 +36,6 @@ $: if (subname) promise = redditItems({
   path: `/r/${subname}/about/muted`,
   query: $page.query,
 });
-$: promise.then(newValue => {
-  console.log({newValue})
-})
 
 middlewareAuth()
 </script>

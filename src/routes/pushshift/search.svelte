@@ -253,7 +253,7 @@ $: validatePropBoolean(removing);
 $: saveDisabled = saving || !name;
 $: removeDisabled = removing || !name;
 $: savedSearchOptions = Object.keys($list)
-$: console.log({savedSearchOptions});
+// $: console.log({savedSearchOptions});
 $: selectedSearch = get(get($list, nameValue, null), 'name');
 $: promise && promise.then(newCollectionValue => {
   collection = newCollectionValue

@@ -104,6 +104,6 @@ $: author_list = ((($author_csv && $author_csv.split)
   ? $author_csv.split(',').map(cleanupSubName).filter(Boolean)
   : null) || [])
 $: quickRemovesFiltered = getQuickRemovesFiltered(quickRemoves, author_list)
-$: console.log({author_list})
-$: console.log({ '$author_csv': $author_csv})
+// $: console.log({author_list})
+// $: console.log({ '$author_csv': $author_csv})
 </script>

@@ -3,7 +3,7 @@
     <div class="card-header text-muted">
       <UserLink username={user.name} />
       <UsertagBadge username={user.name}/>
-      <TimeAgo value="user.date" />
+      <TimeAgo value={user.date} />
       {user.note}
     </div>
     <div class="card-footer text-muted bg-light">
@@ -33,12 +33,12 @@ import UsertagBadge from '~/components/UsertagBadge';
 import TimeAgo from '~/components/TimeAgo';
 import UserLink from '~/components/UserLink';
 import ShowSource from '~/components/ShowSource';
-import validatePropUser from '~/lib/validateProp/user';
+import validatePropObject from '~/lib/validateProp/object';
 import { oneOpen } from '~/lib/open';
 
 // props
 export let user;
 let show = oneOpen();
 
-$: validatePropUser(user);
+$: validatePropObject(user);
 </script>

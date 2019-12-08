@@ -45,7 +45,7 @@ import { oneOpen } from '~/lib/open';
 export let item;
 let show = oneOpen();
 
-$: console.log(item);
+// $: console.log(item);
 // $: validatePropItem(item);
 
 </script>

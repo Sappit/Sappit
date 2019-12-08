@@ -6,7 +6,7 @@
       href="/r/{$page.params.subreddit}/comments/{$page.params.post_id}/{$page.params.post_title}">comments</a>
 
     {#if youtubeId}
-      <a class="btn btn-primary" href="/pushshift?kind=t3&url={youtubeId}">
+      <a class="btn btn-primary" href="/pushshift/search?kind=t3&url={youtubeId}">
         <i class="fa fa-search fa-fw"/>
         Pushshift: threads by youtubeId
       </a>
