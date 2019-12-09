@@ -1,4 +1,3 @@
-lines (21 sloc) 597 Bytes
 <select
   class="form-control r-select"
   name="is_video"
