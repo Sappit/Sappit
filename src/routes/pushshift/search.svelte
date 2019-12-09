@@ -20,18 +20,18 @@
     </div>
     <div class="row">
       <div class="col">
-        <SelectQuerySubredditCsv quickRemoves={pluckquickremoves('subreddit')}/>
+        <SelectQuerySubredditCsv quickRemoves={pluckquickremoves(collection, 'subreddit')}/>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <SelectQueryAuthorCsv quickRemoves={pluckquickremoves('author')}/>
+        <SelectQueryAuthorCsv quickRemoves={pluckquickremoves(collection, 'author')}/>
       </div>
     </div>
     {#if $page.query.kind === Kind.Post}
       <div class="row">
         <div class="col">
-          <SelectQueryDomainCsv quickRemoves={pluckquickremoves('domain')}/>
+          <SelectQueryDomainCsv quickRemoves={pluckquickremoves(collection, 'domain')}/>
         </div>
       </div>
     {/if}
@@ -273,11 +273,11 @@ async function setSelectedSearch (value) {
   }
 }
 
-function pluckquickremoves(path) {
+function pluckquickremoves(collection, path) {
   return reduce(
     get(collection, 'items'),
     (carry, item) => {
-      const name = get(item, `pushshiftEntry.${path}`);
+      const name = get(item, `${path}`) || get(item, `pushshiftEntry.${path}`);
       if (name) {
         if (!carry[name]) {
           carry[name] = {
