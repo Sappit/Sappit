@@ -75,6 +75,9 @@
         <div class="col">
           <SelectQueryIsSelf/>
         </div>
+        <div class="col">
+          <SelectQueryIsVideo/>
+        </div>
       </div>
     {/if}
     <div class="row">
@@ -215,6 +218,7 @@ import PostsGroupedByLinks from '~/components/PostsGroupedByLinks';
 import SelectQueryCommentGroupBy from '~/components/SelectQueryCommentGroupBy';
 import SelectQueryDomainCsv from '~/components/SelectQueryDomainCsv';
 import SelectQueryIsSelf from '~/components/SelectQueryIsSelf';
+import SelectQueryIsVideo from '~/components/SelectQueryIsVideo';
 import SelectQueryPostGroupBy from '~/components/SelectQueryPostGroupBy';
 import SelectQueryKind from '~/components/SelectQueryKind';
 import SelectQuerySize from '~/components/SelectQuerySize';
