@@ -58,13 +58,13 @@ export default async function fetchItems({ path, query }) {
 
   query = { ...query };
 
-  if (query.subreddit && query.subredditnegated) {
+  if (query.subreddit && query.subredditnegated === 'true') {
     query.subreddit = negateList(query.subreddit);
   }
-  if (query.author && query.authornegated) {
+  if (query.author && query.authornegated === 'true') {
     query.author = negateList(query.author);
   }
-  if (query.domain && query.domainnegated) {
+  if (query.domain && query.domainnegated === 'true') {
     query.domain = negateList(query.domain);
   }
   // note: search link URLS by url=
