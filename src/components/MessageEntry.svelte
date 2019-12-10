@@ -13,16 +13,22 @@
         </em>
       {/if}
       <em class="small text-muted">from</em>
-      <UserLink username={message.author} />
-      <UsertagBadge username={message.author}/>
+      {#if message.author}
+        <UserLink username={message.author} />
+        <UsertagBadge username={message.author}/>
+      {:else}
+        <span class="badge badge-secondary small">no username</a>
+      {/if}
       via
       {#if message.subreddit}
         <SubredditLink subreddit={message.subreddit}/>
       {/if}
       sent
       <TimeAgo value={message.created_utc}/>
-      to
-      <UserLink username={message.dest} />
+      {#if message.dest}
+        to
+        <UserLink username={message.dest} />
+      {/if}
       <div class="score pull-right">
         <i
           class="fa fa-fw fa-btn btn-collapse"
