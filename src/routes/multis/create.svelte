@@ -2,15 +2,15 @@
   <div class="col">
     <input
       class="form-control"
-      name="name"
-      bind:value={name}
-      placeholder="name"
+      name="multipath"
+      bind:value={multipath}
+      placeholder="multipath"
     />
   </div>
   <div class="col">
     <button
-      disabled={!name || saving}
-      class:disabled={!name || saving}
+      disabled={!multipath || saving}
+      class:disabled={!multipath || saving}
       class="btn btn-primary"
       on:click|preventDefault|stopPropagation={save}
     >
@@ -33,7 +33,7 @@ import reddit from '~/lib/reddit';
 import middlewareAuth from '~/lib/middleware/auth';
 
 let saving = false
-let name = ''
+let multipath = ''
 let error = null
 let saved = null
 
@@ -42,7 +42,7 @@ async function save () {
     error = null
     saving = true
 
-    const response = await reddit.put(`/api/multi`, {
+    const response = await reddit.put(`/api/multi/${multipath}`, {
       /*
       model: {
         "description_md": raw markdown text,
@@ -58,13 +58,13 @@ async function save () {
         "visibility": one of (`private`, `public`, `hidden`),
       },//*/
       model: JSON.stringify({
-        display_name: name,
+        display_name: multipath,
         visibility: 'private',
       }),
-      multipath: name,
+      multipath,
     })
     
-    name = ''
+    multipath = ''
   } catch (err) {
     console.error(err)
     error = err
