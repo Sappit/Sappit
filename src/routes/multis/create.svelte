@@ -43,7 +43,10 @@ async function save () {
     error = null
     saving = true
 
-    const response = await reddit.put(`/api/multi/${multipath}`, {
+    //const path = `/api/multi/${multipath}`;
+    const path = `/user/${$username}/m/${multipath}`;
+
+    const response = await reddit.post(`/api/multi/${multipath}`, {
       /*
       model: {
         "description_md": raw markdown text,
@@ -59,15 +62,16 @@ async function save () {
         "visibility": one of (`private`, `public`, `hidden`),
       },//*/
 //      model: JSON.stringify({
-        display_name: multipath,
-        visibility: 'private',
-        multipath,
+//        display_name: multipath,
+//        visibility: 'private',
+//        multipath,
 //      }),
 //      multipath,
         // what the website actually does
         // model:{"path":"/user/${username}/m/${multipath}","visibility":"private","subreddits":[]}
         model: JSON.stringify({
-          path: `/user/${$username}/m/${multipath}`,
+//          path: `/user/${$username}/m/${multipath}`,
+          path,
           visibility: 'private',
           subreddits: [],
         }),
