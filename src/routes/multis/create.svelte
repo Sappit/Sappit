@@ -42,7 +42,7 @@ async function save () {
     error = null
     saving = true
 
-    const response = await reddit.put(`/api/multi/${multipath}`, {
+    const response = await reddit.post(`/api/multi/${multipath}`, {
       /*
       model: {
         "description_md": raw markdown text,
@@ -60,6 +60,7 @@ async function save () {
       model: JSON.stringify({
         display_name: multipath,
         visibility: 'private',
+        multipath,
       }),
       multipath,
     })
