@@ -18,10 +18,14 @@
       Save
     </button>
   </div>
-  {#if error}
-    <ErrorAlert value={error}/>
-  {/if}
 </div>
+{#if error}
+  <div class="row">
+    <div class="col">
+      <ErrorAlert value={error}/>
+    </div>
+  </div>
+{/if}
 
 <script>
 import ErrorAlert from '~/components/ErrorAlert';
@@ -53,11 +57,16 @@ async function save () {
         ],
         "visibility": one of (`private`, `public`, `hidden`),
       },//*/
+      mode: JSON.stringify({
+        display_name: name,
+        visibility: 'private',
+      }),
       multipath: name
     })
     
     name = ''
   } catch (err) {
+    console.error(err)
     error = err
   } finally {
     saving = false
