@@ -31,6 +31,7 @@
 import ErrorAlert from '~/components/ErrorAlert';
 import reddit from '~/lib/reddit';
 import middlewareAuth from '~/lib/middleware/auth';
+import { username } from '~/store/auth';
 
 let saving = false
 let multipath = ''
@@ -63,6 +64,13 @@ async function save () {
         multipath,
 //      }),
 //      multipath,
+        // what the website actually does
+        // model:{"path":"/user/${username}/m/${multipath}","visibility":"private","subreddits":[]}
+        model: JSON.stringify({
+          path: `/user/${$username}/m/${multipath}`,
+          visibility: 'private',
+          subreddits: [],
+        }),
     })
     
     multipath = ''
