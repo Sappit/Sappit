@@ -46,7 +46,7 @@ async function save () {
     //const path = `/api/multi/${multipath}`;
     const path = `/user/${$username}/m/${multipath}`;
 
-    const response = await reddit.post(`api/user/${$username}/m/${multipath}`, {
+    const response = await reddit.post(`/api/multi/${path}`, {
       /*
       model: {
         "description_md": raw markdown text,
