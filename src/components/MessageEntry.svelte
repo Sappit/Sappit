@@ -17,7 +17,7 @@
         <UserLink username={message.author} />
         <UsertagBadge username={message.author}/>
       {:else}
-        <span class="badge badge-secondary small">no username</a>
+        <span class="badge badge-secondary small">no username</span>
       {/if}
       via
       {#if message.subreddit}
