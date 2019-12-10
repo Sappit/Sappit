@@ -57,7 +57,7 @@ async function save () {
         ],
         "visibility": one of (`private`, `public`, `hidden`),
       },//*/
-      mode: JSON.stringify({
+      model: JSON.stringify({
         display_name: name,
         visibility: 'private',
       }),
