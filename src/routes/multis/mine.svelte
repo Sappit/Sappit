@@ -1,3 +1,12 @@
+<div class="row">
+  <div class="col">
+    <div class="btn-group">
+      <a href="/multis/create" class="btn btn-success">
+        <i class="fa fa-fw fa-floppy"/>
+      </a>
+    </div>
+  </div>
+</div>
 <ClientsideFilter/>
 {#await promise}
   <Loading/>
