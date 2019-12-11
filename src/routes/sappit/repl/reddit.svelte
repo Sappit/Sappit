@@ -63,7 +63,8 @@
   <textarea class="form-control" value={resultText}></textarea>
 </div>
 
-<ShowSource value={({statusCode})}/>
+<ShowSource value={({response})}/>
+<ShowSource value={({resultText})}/>
 
 {#if error}
   <ErrorAlert value={errorText || error}/>
