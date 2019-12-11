@@ -1,3 +1,4 @@
+<div class="container">
 <select name="method" class="form-control r-select" value={method}>
   <option value="GET">GET</option>
   <option value="HEAD">HEAD</option>
@@ -45,7 +46,7 @@
 
 <div class="row">
   <div class="col">
-    <ShowSource value={'Payload '+JSON.stringify(payload)}/>
+    <ShowSource value={'Payload '+JSON.stringify(payload, null, 2)}/>
   </div>
 </div>
 
@@ -59,13 +60,16 @@
 {#if error}
   <ErrorAlert value={errorText || error}/>
 {/if}
+</div>
 
 <script>
+import { onMount } from 'svelte';
 import ShowSource from '~/components/ShowSource'
 import SelectAuthUsername from '~/components/SelectAuthUsername'
 import ErrorAlert from '~/components/ErrorAlert'
 import qs from 'qs'
 import reddit from '~/lib/reddit'
+import { usernames } from '~/store/auth';
 
 let method = 'GET'
 let path = '/r/popular'
@@ -91,6 +95,10 @@ $: errorText = (error && error.response && getResponseText(error.response)) || e
 $: statusCode = (response && response.status) ||
   (error && error.response && error.response.status) ||
   (error && error.status) || null
+
+onMount(() => {
+  username = $usernames[0] || null
+})
 
 async function execute () {
   try {
