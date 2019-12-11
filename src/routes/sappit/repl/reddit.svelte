@@ -1,5 +1,5 @@
 <div class="container">
-<select name="method" class="form-control r-select" value={method}>
+<select name="method" class="form-control r-select" bind:value={method}>
   <option value="GET">GET</option>
   <option value="HEAD">HEAD</option>
   <option value="POST">POST</option>
@@ -9,7 +9,7 @@
 </select>
 
 <div class="form-group">
-  <input type="text" class="form-control" value={path}/>
+  <input type="text" class="form-control" bind:value={path}/>
 </div>
 
 <div>
@@ -17,8 +17,8 @@
   <br>
   {#each queryList as ql}
     <div class="form-group row">
-      <input class="col" value={ql.key}/>
-      <input class="col" value={ql.value}/>
+      <input class="col" bind:value={ql.key}/>
+      <input class="col" bind:value={ql.value}/>
       <button on:click={() => { queryList = queryList.filter(entry => entry !== ql) }}>x</button>
     </div>
   {/each}
@@ -32,8 +32,8 @@
   <br>
   {#each dataList as item}
     <div class="form-group row">
-      <input class="col" value={item.key}/>
-      <input class="col" value={item.value}/>
+      <input class="col" bind:value={item.key}/>
+      <input class="col" bind:value={item.value}/>
       <button on:click={() => { dataList = dataList.filter(entry => entry !== item) }}>x</button>
     </div>
   {/each}
