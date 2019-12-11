@@ -13,6 +13,8 @@
 </div>
 
 <div>
+  Query
+  <br>
   {#each queryList as ql}
     <div class="form-group row">
       <input class="col" value={ql.key}/>
@@ -26,6 +28,8 @@
 </div>
 
 <div>
+  Data
+  <br>
   {#each dataList as item}
     <div class="form-group row">
       <input class="col" value={item.key}/>
@@ -46,7 +50,8 @@
 
 <div class="row">
   <div class="col">
-    <ShowSource value={'Payload '+JSON.stringify(payload, null, 2)}/>
+    Payload
+    <ShowSource value={payload}/>
   </div>
 </div>
 
@@ -57,6 +62,9 @@
 <div class="form-group">
   <textarea class="form-control" value={resultText}></textarea>
 </div>
+
+<ShowSource value={({statusCode})}/>
+
 {#if error}
   <ErrorAlert value={errorText || error}/>
 {/if}
