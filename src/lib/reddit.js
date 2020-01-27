@@ -111,10 +111,10 @@ const scopes = [
   'history',
   'modcontributors',
   'modconfig',
-  // 'modflair',
+  'modflair',
   'modlog',
   'modposts',
-  // 'modwiki',
+  'modwiki',
   'mysubreddits',
   'privatemessages',
   'read',
@@ -123,8 +123,8 @@ const scopes = [
   'submit',
   'subscribe',
   'vote',
-  // 'wikiedit',
-  // 'wikiread',
+  'wikiedit',
+  'wikiread',
 ];
 
 export async function fetchAccessToken({ state, code, error }) {
