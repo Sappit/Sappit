@@ -15,7 +15,8 @@ import Loading from '~/components/Loading';
 import AddContributorForm from '~/components/AddContributorForm';
 import ApprovedUserList from '~/components/ApprovedUserList';
 import RedditPagination from '~/components/RedditPagination';
-import redditItems from '~/lib/redditItems';
+import reddit from '~/lib/reddit';
+// import redditItems from '~/lib/redditItems';
 import middlewareAuth from '~/lib/middleware/auth';
 // import validatePropSubreddit from '~/lib/validateProp/subreddit';
 import { stores } from '@sapper/app'
@@ -30,9 +31,8 @@ let promise = null;
 
 middlewareAuth()
 $: subname = $page.params.subreddit;
-$: if (subname) promise = redditItems({
-  path: `/r/${subname}/wiki/edit`,
-  query: $page.query,
+$: if (subname) promise = reddit.get(`/r/${subname}/wiki/edit`, {
+  params: $page.query,
 });
 
 </script>
