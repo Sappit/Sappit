@@ -4,6 +4,10 @@
     <a
       class="btn btn-primary pull-right"
       href="/r/{$page.params.subreddit}/comments/{$page.params.post_id}/{$page.params.post_title}">comments</a>
+    <a class="btn btn-primary" href="/pushshift/search?kind=t3&url={post.url}">
+      <i class="fa fa-search fa-fw"/>
+      Pushshift: other threads
+    </a>
 
     {#if youtubeId}
       <a class="btn btn-primary" href="/pushshift/search?kind=t3&url={youtubeId}">
@@ -31,7 +35,7 @@ import validatePropSubreddit from '~/lib/validateProp/subreddit';
 import { stores } from '@sapper/app'
 const { page } = stores();
 
-
+// recently the duplicate posts API has been returning empty data for posts I know have duplicates.
 // props
 export let subreddit;
 export let post;
