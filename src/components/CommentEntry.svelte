@@ -1,5 +1,5 @@
 <div class="comment-entry">
-  <div class="card" class:bg-info={bgInfo}>
+  <div class="card" class:border-info={borderInfo}>
     <div class="card-header text-muted">
       {#if comment.stickied}
         <span class="badge badge-secondary">[stickied]</span>
@@ -245,7 +245,7 @@ $: parentTo = getCommentParentToUrl(comment)
 $: linkToFullComments = getCommentLinkToFullComments(comment, $page)
 $: isAuthor = $usernames.includes(comment.author)
 $: showSubreddit = checkIfShouldShowSubreddit(comment, $page);
-$: bgInfo = comment.id && comment.id === $page.params.comment_id;
+$: borderInfo = comment.id && comment.id === $page.params.comment_id;
 
 function checkIfShouldShowSubreddit(comment, $page) {
   if (!comment.subreddit) return false;
