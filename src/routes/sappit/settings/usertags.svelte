@@ -35,7 +35,7 @@
           </tr>
         </thead>
         <tbody>
-          {#each items as tag, username (username)}
+          {#each items as {tag, username}}
             <tr>
               <td><UserLink {username} /></td>
               <td>{ tag }</td>
@@ -64,7 +64,7 @@ import middlewareAuth from '~/lib/middleware/auth';
 import validatePropObject from '~/lib/validateProp/object';
 import validatePropString from '~/lib/validateProp/string';
 
-let items = {};
+let items = [];
 let add_username = '';
 let add_tag = '';
 let error = null;
@@ -82,7 +82,7 @@ async function save($event) {
   error = null
   try {
     await usertags.set(add_username, add_tag);
-    items[add_username] = add_tag;
+    items.push({ username: add_username, tag: add_tag });
     add_username = '';
     add_tag = '';
     items = items;
@@ -104,11 +104,12 @@ async function fetchItems() {
   error = null
   try {
     const keys = await usertags.keys();
-    const data = {};
+    const data = [];
     for (let i = 0; i < keys.length; i++) {
       const item = await usertags.get(keys[i]);
       if (item && item.length) {
-        data[keys[i]] = item;
+        //data[keys[i]] = item;
+        data.push({ username: keys[i], tag: item });
       }
     }
     items = data;
