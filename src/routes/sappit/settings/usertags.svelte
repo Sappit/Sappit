@@ -42,7 +42,7 @@
               <td>
                 <button
                  class="btn btn-xs btn-danger"
-                 on:click|preventDefault|stopPropagation={del(username)}
+                 on:click|preventDefault|stopPropagation={() => del(username)}
                 >
                   <i class="fa fa-fw fa-cancel"/>
                 </button>
