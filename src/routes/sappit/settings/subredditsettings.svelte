@@ -127,6 +127,7 @@ async function fetchItems() {
 }
 
 const validateAddConfig = debounce((value) => {
+  error = null;
   if (value === "" || value === "") {
     return null;
   }
