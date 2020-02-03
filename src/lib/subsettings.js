@@ -4,7 +4,7 @@ const store = process.browser ? new Store('srs') : {};
 
 export default {
   store,
-  set: (k, v) => set(k, JSON.stringify(v), store),
+  set: (k, v) => (console.log({ k, v, json: JSON.stringify(v) }), set(k, JSON.stringify(v), store)),
   get: k => {
     try {
       return JSON.parse(get(k, store)) || {};

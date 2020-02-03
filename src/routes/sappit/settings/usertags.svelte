@@ -82,10 +82,9 @@ async function save($event) {
   error = null
   try {
     await usertags.set(add_username, add_tag);
-    items.push({ username: add_username, tag: add_tag });
     add_username = '';
     add_tag = '';
-    items = items;
+    fetchItems();
   } catch (err) {
     error = err;
   }

@@ -83,10 +83,9 @@ async function save($event) {
   error = null
   try {
     await subsettings.set(add_subreddit, add_config);
-    items.push({ subreddit: add_subreddit, config: add_config });
     add_subreddit = '';
     add_config = '';
-    items = items;
+    fetchItems()
   } catch (err) {
     error = err;
   }
