@@ -4,8 +4,8 @@ const store = process.browser ? new Store('srs') : {};
 
 export default {
   store,
-  set: (k, v) => (console.log({ k, v, json: JSON.stringify(v) }), await set(k, JSON.stringify(v), store)),
-  get: k => {
+  set: async (k, v) => (console.log({ k, v, json: JSON.stringify(v) }), await set(k, JSON.stringify(v), store)),
+  get: async (k) => {
     try {
       console.log('get', k, await get(k, store));
       return JSON.parse(await get(k, store)) || {};
