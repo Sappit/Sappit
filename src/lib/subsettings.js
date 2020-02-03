@@ -4,11 +4,11 @@ const store = process.browser ? new Store('srs') : {};
 
 export default {
   store,
-  set: (k, v) => (console.log({ k, v, json: JSON.stringify(v) }), set(k, JSON.stringify(v), store)),
+  set: (k, v) => (console.log({ k, v, json: JSON.stringify(v) }), await set(k, JSON.stringify(v), store)),
   get: k => {
     try {
-      console.log('get', k, get(k, store));
-      return JSON.parse(get(k, store)) || {};
+      console.log('get', k, await get(k, store));
+      return JSON.parse(await get(k, store)) || {};
     } catch (err) {
       // eslint-disable-next-line
       console.error(err)
