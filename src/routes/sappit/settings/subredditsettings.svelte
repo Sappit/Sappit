@@ -1,0 +1,120 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label>Subreddit</label>
+        <input class="form-control" name="add_subreddit" bind:value={add_subreddit}/>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label>Config</label>
+        <input class="form-control" name="add_config" bind:value={add_config}/>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <button class="btn btn-success" name="save_config" on:click|preventDefault|stopPropagation={save}>
+          <i class="fa fa-fw fa-plus"/>
+          Save Config
+        </button>
+      </div>
+    </div>
+  </div>
+  {#if error}
+    <ErrorAlert value={error} />
+  {/if}
+  <div class="row">
+    <div class="col">
+      <table class="table-sm">
+        <thead>
+          <tr>
+            <th>Subreddit</th>
+            <td>Config</td>
+            <td></td>
+          </tr>
+        </thead>
+        <tbody>
+          {#each items as {config, subreddit}}
+            <tr>
+              <td><SubredditLink {subreddit} /></td>
+              <td><pre><tt>{ JSON.stringify(config, null, 2) }</tt></pre></td>
+              <td>
+                <button
+                 class="btn btn-xs btn-danger"
+                 on:click|preventDefault|stopPropagation={del(subreddit)}
+                >
+                  <i class="fa fa-fw fa-cancel"/>
+                </button>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+import ErrorAlert from '~/components/ErrorAlert';
+import SubredditLink from '~/components/SubredditLink';
+import subsettings from '~/lib/subsettings';
+import { onMount } from 'svelte';
+import middlewareAuth from '~/lib/middleware/auth';
+import validatePropArray from '~/lib/validateProp/array';
+import validatePropString from '~/lib/validateProp/string';
+
+let items = [];
+let add_subreddit = '';
+let add_config = '';
+let error = null;
+
+$: validatePropArray(items);
+$: validatePropString(add_subreddit);
+$: validatePropString(add_config);
+
+middlewareAuth()
+onMount(() => {
+  fetchItems();
+})
+
+async function save($event) {
+  error = null
+  try {
+    await subsettings.set(add_subreddit, add_config);
+    items.push({ Subreddit: add_subreddit, Config: add_config });
+    add_subreddit = '';
+    add_config = '';
+    items = items;
+  } catch (err) {
+    error = err;
+  }
+}
+async function del(key) {
+  error = null
+  try {
+    const r = await subsettings.del(key);
+    //delete items[key];
+    items = items.filter(entry => entry.Subreddit !== key);
+  } catch (err) {
+    error = err;
+  }
+}
+async function fetchItems() {
+  error = null
+  try {
+    const keys = await subsettings.keys();
+    const data = [];
+    for (let i = 0; i < keys.length; i++) {
+      const item = await subsettings.get(keys[i]);
+      if (item && item.length) {
+        //data[keys[i]] = item;
+        data.push({ Subreddit: keys[i], Config: item });
+      }
+    }
+    items = data;
+  } catch (err) {
+    error = err;
+  }
+}
+</script>
