@@ -42,7 +42,7 @@
               <td>
                 <button
                  class="btn btn-xs btn-danger"
-                 on:click|preventDefault|stopPropagation={del(subreddit)}
+                 on:click|preventDefault|stopPropagation={() => del(subreddit)}
                 >
                   <i class="fa fa-fw fa-cancel"/>
                 </button>
