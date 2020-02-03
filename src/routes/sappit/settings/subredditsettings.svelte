@@ -82,7 +82,7 @@ async function save($event) {
   error = null
   try {
     await subsettings.set(add_subreddit, add_config);
-    items.push({ Subreddit: add_subreddit, Config: add_config });
+    items.push({ subreddit: add_subreddit, config: add_config });
     add_subreddit = '';
     add_config = '';
     items = items;
@@ -95,7 +95,7 @@ async function del(key) {
   try {
     const r = await subsettings.del(key);
     //delete items[key];
-    items = items.filter(entry => entry.Subreddit !== key);
+    items = items.filter(entry => entry.subreddit !== key);
   } catch (err) {
     error = err;
   }
@@ -109,7 +109,7 @@ async function fetchItems() {
       const item = await subsettings.get(keys[i]);
       if (item && item.length) {
         //data[keys[i]] = item;
-        data.push({ Subreddit: keys[i], Config: item });
+        data.push({ subreddit: keys[i], config: item });
       }
     }
     items = data;
