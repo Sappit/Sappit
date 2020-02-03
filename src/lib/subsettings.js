@@ -1,6 +1,6 @@
 import { Store, get, set, keys, del, clear } from 'idb-keyval';
 
-const store = process.browser ? new Store('r', 'srs1') : {};
+const store = process.browser ? new Store('srs') : {};
 
 export default {
   store,
