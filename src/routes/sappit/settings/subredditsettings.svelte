@@ -10,6 +10,9 @@
       <div class="form-group">
         <label>Config</label>
         <input class="form-control" name="add_config" bind:value={add_config}/>
+        {#if invalid_add_config_message}
+          <ErrorAlert value={invalid_add_config_message} />
+        {/if}
       </div>
     </div>
     <div class="col">
@@ -56,6 +59,7 @@
 </div>
 
 <script>
+import debounce from 'lodash/debounce';
 import ErrorAlert from '~/components/ErrorAlert';
 import SubredditLink from '~/components/SubredditLink';
 import subsettings from '~/lib/subsettings';
@@ -68,10 +72,12 @@ let items = [];
 let add_subreddit = '';
 let add_config = '';
 let error = null;
+let invalid_add_config_message = null;
 
 $: validatePropArray(items);
 $: validatePropString(add_subreddit);
 $: validatePropString(add_config);
+$: invalid_add_config_message = validateAddConfig(add_config);
 
 middlewareAuth()
 onMount(() => {
@@ -119,4 +125,22 @@ async function fetchItems() {
     error = err;
   }
 }
+
+const validateAddConfig = debounce((value) => {
+  if (value === "" || value === "") {
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(value);
+    if (typeof parsed !== 'object') {
+      return "not object";
+    }
+  } catch (err) {
+    // eslint-disable-next-line
+    console.error(err);
+    error = err;
+    return "error";
+  }
+  return null;
+}, 500);
 </script>
