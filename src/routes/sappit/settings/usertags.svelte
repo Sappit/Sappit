@@ -21,6 +21,9 @@
       </div>
     </div>
   </div>
+  {#if error}
+    <ErrorAlert value={error} />
+  {/if}
   <div class="row">
     <div class="col">
       <table class="table-sm">
@@ -53,6 +56,7 @@
 </div>
 
 <script>
+import ErrorAlert from '~/components/ErrorAlert';
 import UserLink from '~/components/UserLink';
 import usertags from '~/lib/usertags';
 import { onMount } from 'svelte';
@@ -63,6 +67,7 @@ import validatePropString from '~/lib/validateProp/string';
 let items = {};
 let add_username = '';
 let add_tag = '';
+let error = null;
 
 $: validatePropObject(items);
 $: validatePropString(add_username);
@@ -74,26 +79,41 @@ onMount(() => {
 })
 
 async function save($event) {
-  await usertags.set(add_username, add_tag);
-  items[add_username] = add_tag;
-  add_username = '';
-  add_tag = '';
-  items = items;
+  error = null
+  try {
+    await usertags.set(add_username, add_tag);
+    items[add_username] = add_tag;
+    add_username = '';
+    add_tag = '';
+    items = items;
+  } catch (err) {
+    error = err;
+  }
 }
 async function del(key) {
-  const r = await usertags.del(key);
-  delete items[key];
-  items = items;
+  error = null
+  try {
+    const r = await usertags.del(key);
+    delete items[key];
+    items = items;
+  } catch (err) {
+    error = err;
+  }
 }
 async function fetchItems() {
-  const keys = await usertags.keys();
-  const data = {};
-  for (let i = 0; i < keys.length; i++) {
-    const item = await usertags.get(keys[i]);
-    if (item && item.length) {
-      data[keys[i]] = item;
+  error = null
+  try {
+    const keys = await usertags.keys();
+    const data = {};
+    for (let i = 0; i < keys.length; i++) {
+      const item = await usertags.get(keys[i]);
+      if (item && item.length) {
+        data[keys[i]] = item;
+      }
     }
+    items = data;
+  } catch (err) {
+    error = err;
   }
-  items = data;
 }
 </script>
