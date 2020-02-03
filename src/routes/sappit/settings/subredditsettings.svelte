@@ -128,7 +128,7 @@ async function fetchItems() {
 
 const validateAddConfig = debounce((value) => {
   error = null;
-  if (value === "" || value === "") {
+  if (value === "" || value === null) {
     return null;
   }
   try {
@@ -136,12 +136,12 @@ const validateAddConfig = debounce((value) => {
     if (typeof parsed !== 'object') {
       return "not object";
     }
+    return null;
   } catch (err) {
     // eslint-disable-next-line
     console.error(err);
     error = err;
     return "error";
   }
-  return null;
 }, 500);
 </script>
