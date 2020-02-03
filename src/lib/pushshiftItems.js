@@ -168,7 +168,7 @@ export async function nextPage(collection) {
 function getLastCreatedAt(items) {
   const lastCreatedAt = get(
     last(get(items, 'data.children')),
-    'data.created_utc',
+    'created_utc',
   );
   return lastCreatedAt || null;
 }
