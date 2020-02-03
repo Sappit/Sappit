@@ -61,7 +61,7 @@ import UserLink from '~/components/UserLink';
 import usertags from '~/lib/usertags';
 import { onMount } from 'svelte';
 import middlewareAuth from '~/lib/middleware/auth';
-import validatePropObject from '~/lib/validateProp/object';
+import validatePropArray from '~/lib/validateProp/array';
 import validatePropString from '~/lib/validateProp/string';
 
 let items = [];
@@ -69,7 +69,7 @@ let add_username = '';
 let add_tag = '';
 let error = null;
 
-$: validatePropObject(items);
+$: validatePropArray(items);
 $: validatePropString(add_username);
 $: validatePropString(add_tag);
 
@@ -94,8 +94,8 @@ async function del(key) {
   error = null
   try {
     const r = await usertags.del(key);
-    delete items[key];
-    items = items;
+    //delete items[key];
+    items = items.filter(entry => entry.username !== key);
   } catch (err) {
     error = err;
   }
