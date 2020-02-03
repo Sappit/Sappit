@@ -79,6 +79,7 @@ onMount(() => {
 })
 
 async function save($event) {
+  console.log('save', add_subreddit, add_config);
   error = null
   try {
     await subsettings.set(add_subreddit, add_config);
@@ -91,6 +92,7 @@ async function save($event) {
   }
 }
 async function del(key) {
+  console.log('del.key', key);
   error = null
   try {
     const r = await subsettings.del(key);
@@ -113,6 +115,7 @@ async function fetchItems() {
       }
     }
     items = data;
+    console.log({ items });
   } catch (err) {
     error = err;
   }
