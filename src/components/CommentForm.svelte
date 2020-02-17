@@ -96,8 +96,9 @@ $: editingComment===null || validatePropComment(editingComment);
 $: validatePropString(body);
 $: selectedUsername===null || validatePropString(selectedUsername);
 $: isSaveDisabled = saving || trashing || !body;
-$: isReplying = !isEditing || !!parent
-$: isEditing = !!editingComment
+$: isReplying = !isEditing || !!parent;
+$: isEditing = !!editingComment;
+$: console.log('editingComment', editingComment);
 
 onMount(() => {
   editingComment = comment;
