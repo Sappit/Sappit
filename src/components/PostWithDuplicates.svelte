@@ -45,4 +45,6 @@ $: validatePropSubreddit(subreddit);
 $: validatePropPost(post);
 $: validatePropPosts(duplicates);
 $: youtubeId = (post && post.url && getYoutubeId(post.url)) || null;
+
+$: console.log('duplicates', duplicates);
 </script>
