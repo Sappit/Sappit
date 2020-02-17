@@ -88,7 +88,7 @@ let saving = false;
 let trashing = false;
 let errors = null;
 
-$: validatePropItem(parent);
+$: parent===null || validatePropItem(parent);
 $: comment===null || validatePropComment(comment);
 $: validatePropBoolean(saving);
 $: validatePropBoolean(trashing);
