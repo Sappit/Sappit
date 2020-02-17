@@ -15,7 +15,7 @@ export default async function fetchDuplicates(post) {
     },
   })).data;
 
-  const duplicates = map(get(duplicatesRaw, 'data.childeren'), undata);
+  const duplicates = map(get(duplicatesRaw, 'data.children'), undata);
 
   return duplicates;
 }
