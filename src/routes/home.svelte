@@ -24,7 +24,7 @@
       <a class="btn btn-outline-secondary" href="/chat">/chat</a>
       {#if $username}
         <a class="btn btn-outline-success" href="/user/{$username}">/u/{ $username }</a>
-        <a class="btn btn-outline-success" href="/user/{$username}/saved">Saved</a>
+        <a class="btn btn-outline-success" href="/saved">Saved</a>
       {/if}
     </div>
     <div class="links">
