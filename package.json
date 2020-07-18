@@ -32,7 +32,7 @@
     "get-youtube-id": "^1.0.1",
     "http-proxy-middleware": "^0.20.0",
     "idb-keyval": "^3.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mark.js": "^8.11.1",
     "mini-css-extract-plugin": "^0.8.0",
     "netlify-lambda": "^1.6.3",
