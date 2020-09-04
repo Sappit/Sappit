@@ -36,7 +36,7 @@
     "mark.js": "^8.11.1",
     "mini-css-extract-plugin": "^0.8.0",
     "netlify-lambda": "^1.6.3",
-    "node-sass": "^4.13.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.19.4",
     "polka": "next",
     "prettier-plugin-svelte": "^0.7.0",
